@@ -1,26 +1,49 @@
 {
-  "name": "my-app",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "react": "^18",
-    "react-dom": "^18",
-    "next": "14.2.4"
-  },
-  "devDependencies": {
-    "typescript": "^5",
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.4"
-  }
+    "name": "app",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint",
+        "tsc": "npx tsc --pretty --noEmit",
+        "svgr": "npx @svgr/cli --no-dimensions --no-prettier --jsx-runtime automatic --typescript --ignore-existing --out-dir ./src/components/icons -- ./icons/"
+    },
+    "dependencies": {
+        "@hookform/resolvers": "^3.6.0",
+        "@radix-ui/react-label": "^2.0.2",
+        "@radix-ui/react-separator": "^1.0.3",
+        "@radix-ui/react-slot": "^1.0.2",
+        "@radix-ui/react-toast": "^1.1.5",
+        "@supabase/ssr": "^0.3.0",
+        "@tanstack/react-query": "^5.45.0",
+        "@vercel/analytics": "^1.3.1",
+        "clsx": "^2.1.1",
+        "date-fns": "^3.6.0",
+        "next": "14.2.3",
+        "react": "^18",
+        "react-dom": "^18",
+        "react-hook-form": "^7.51.5",
+        "tailwind-merge": "^2.3.0",
+        "zod": "^3.23.8"
+    },
+    "devDependencies": {
+        "@types/node": "^20",
+        "@types/react": "^18",
+        "@types/react-dom": "^18",
+        "autoprefixer": "^10.4.19",
+        "eslint": "^8",
+        "eslint-config-next": "14.2.3",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-prettier": "^5.1.3",
+        "eslint-plugin-simple-import-sort": "^12.1.0",
+        "postcss": "^8",
+        "prettier": "^3.3.2",
+        "prettier-plugin-tailwindcss": "^0.6.4",
+        "supabase": "^1.176.10",
+        "tailwindcss": "^3.4.1",
+        "typescript": "^5",
+        "typescript-eslint": "^7.13.0"
+    }
 }

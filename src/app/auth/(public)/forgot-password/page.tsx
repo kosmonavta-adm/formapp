@@ -1,29 +1,18 @@
 import { Metadata } from 'next';
 import Image from 'next/image';
-import { redirect } from 'next/navigation';
 
-import { createClient } from '@/auth/server';
-import LoginForm from '@/components/auth/LoginForm';
-import { url } from '@/utils/utils';
+import ForgotPassword from '@/components/auth/ForgotPassword';
 
 export const metadata: Metadata = {
-    title: 'Tymczasowy tytuł - logowanie',
+    title: 'Tymczasowy tytuł - resetowanie hasła',
     description: 'Tymczasowy opis',
     openGraph: {
-        title: 'Tymczasowy tytuł - logowanie',
+        title: 'Tymczasowy tytuł - resetowanie hasła',
         description: 'Tymczasowy opis',
     },
 };
 
-export default async function LoginPage() {
-    const supabase = createClient();
-
-    const { data } = await supabase.auth.getUser();
-
-    if (data?.user) {
-        redirect(url.dashboard);
-    }
-
+export default function ForgotPasswordPage() {
     return (
         <main className="grid min-h-svh grid-cols-1 lg:grid-cols-2">
             <div className="relative hidden lg:flex">
@@ -35,7 +24,7 @@ export default async function LoginPage() {
                     alt=""
                 />
             </div>
-            <LoginForm />
+            <ForgotPassword />
         </main>
     );
 }
