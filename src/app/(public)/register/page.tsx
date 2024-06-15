@@ -3,19 +3,19 @@ import Image from 'next/image';
 import { redirect } from 'next/navigation';
 
 import { createClient } from '@/auth/server';
-import LoginForm from '@/components/auth/LoginForm';
+import RegisterForm from '@/components/auth/RegisterForm';
 import { url } from '@/utils/utils';
 
 export const metadata: Metadata = {
-    title: 'Tymczasowy tytuł - logowanie',
+    title: 'Tymczasowy tytuł - rejestracja',
     description: 'Tymczasowy opis',
     openGraph: {
-        title: 'Tymczasowy tytuł - logowanie',
+        title: 'Tymczasowy tytuł - rejestracja',
         description: 'Tymczasowy opis',
     },
 };
 
-export default async function LoginPage() {
+export default async function RegisterPage() {
     const supabase = createClient();
 
     const { data } = await supabase.auth.getUser();
@@ -35,7 +35,7 @@ export default async function LoginPage() {
                     alt=""
                 />
             </div>
-            <LoginForm />
+            <RegisterForm />
         </main>
     );
 }

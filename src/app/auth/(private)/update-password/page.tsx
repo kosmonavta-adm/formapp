@@ -3,25 +3,23 @@ import Image from 'next/image';
 import { redirect } from 'next/navigation';
 
 import { createClient } from '@/auth/server';
-import LoginForm from '@/components/auth/LoginForm';
+import UpdatePassword from '@/components/auth/UpdatePassword';
 import { url } from '@/utils/utils';
 
 export const metadata: Metadata = {
-    title: 'Tymczasowy tytuł - logowanie',
-    description: 'Tymczasowy opis',
+    title: 'Tymczasowy tytuł - zmień hasło',
     openGraph: {
-        title: 'Tymczasowy tytuł - logowanie',
-        description: 'Tymczasowy opis',
+        title: 'Tymczasowy tytuł - zmień hasło',
     },
 };
 
-export default async function LoginPage() {
+export default async function PrivatePage() {
     const supabase = createClient();
 
-    const { data } = await supabase.auth.getUser();
+    const { data, error } = await supabase.auth.getUser();
 
-    if (data?.user) {
-        redirect(url.dashboard);
+    if (error || !data?.user) {
+        redirect(url.login);
     }
 
     return (
@@ -35,7 +33,7 @@ export default async function LoginPage() {
                     alt=""
                 />
             </div>
-            <LoginForm />
+            <UpdatePassword />
         </main>
     );
 }
