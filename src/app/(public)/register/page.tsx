@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation';
 
 import { createClient } from '@/auth/server';
 import RegisterForm from '@/components/auth/RegisterForm';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
 import { url } from '@/utils/utils';
 
 export const metadata: Metadata = {
@@ -35,7 +36,10 @@ export default async function RegisterPage() {
                     alt=""
                 />
             </div>
-            <RegisterForm />
+            <div className="flex flex-col items-center p-4">
+                <LanguageSwitcher />
+                <RegisterForm />
+            </div>
         </main>
     );
 }

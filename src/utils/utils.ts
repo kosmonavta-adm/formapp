@@ -9,3 +9,15 @@ export const url = {
 };
 
 export const cxTw = (...classes: ClassValue[]) => twMerge(clsx(...classes));
+
+export const ERROR_KEYS = {
+    MIN_LENGTH: 'minLength',
+    INCORRECT_EMAIL: 'incorrectEmail',
+    PASSWORDS_DOESNT_MATCH: 'passwordsDoesntMatch',
+};
+
+export const getErrorMessage = <T, K extends keyof T | undefined>(key: K, dict: T) => {
+    if (key === undefined) return;
+
+    return dict[key];
+};

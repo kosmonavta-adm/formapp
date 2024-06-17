@@ -1,0 +1,24 @@
+{
+    "pl": {
+        "login": "Logowanie",
+        "email": "E-mail",
+        "password": "Hasło",
+        "forgotPassword": "Zapomniałeś hasła?",
+        "signIn": "Zaloguj się",
+        "or": "lub",
+        "signUp": "Załóż konto",
+        "inOurService": "w naszym serwisie",
+        "mailOrPasswordAreIncorrect": "Mail lub hasło są nieprawidłowe"
+    },
+    "en": {
+        "login": "Login",
+        "email": "E-mail",
+        "password": "Password",
+        "forgotPassword": "Forgot your password?",
+        "signIn": "Sign In",
+        "or": "or",
+        "signUp": "Sign Up",
+        "inOurService": "in our service",
+        "mailOrPasswordAreIncorrect": "Mail or password are incorrect"
+    }
+}

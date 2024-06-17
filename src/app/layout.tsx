@@ -2,8 +2,10 @@ import './globals.css';
 
 import type { Metadata } from 'next';
 import { Maven_Pro } from 'next/font/google';
+import { cookies } from 'next/headers';
 
 import { Toaster } from '@/components/ui/Toast/Toaster';
+import LocaleProvider from '@/providers/LocaleProvider';
 
 const mavenPro = Maven_Pro({ subsets: ['latin'] });
 
@@ -17,10 +19,11 @@ export default function RootLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+    const locale = (cookies().get('NEXT_LOCALE')?.value ?? 'pl') as 'pl' | 'en';
     return (
         <html lang="pl">
             <body className={mavenPro.className}>
-                {children}
+                <LocaleProvider locale={locale}>{children}</LocaleProvider>
                 <Toaster />
             </body>
         </html>

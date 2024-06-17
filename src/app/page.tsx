@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation';
 
 import { createClient } from '@/auth/server';
 import LoginForm from '@/components/auth/LoginForm';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
 import { url } from '@/utils/utils';
 
 export const metadata: Metadata = {
@@ -35,7 +36,10 @@ export default async function LoginPage() {
                     alt=""
                 />
             </div>
-            <LoginForm />
+            <div className="flex flex-col items-center p-4">
+                <LanguageSwitcher />
+                <LoginForm />
+            </div>
         </main>
     );
 }
