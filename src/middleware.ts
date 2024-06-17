@@ -1,9 +1,31 @@
-import { type NextRequest } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
 
 import { updateSession } from '@/auth/middleware';
 
+const updateLocale = (acceptedLocales: string | null, response: NextResponse<unknown>) => {
+    if (acceptedLocales === null) {
+        response.cookies.set('NEXT_LOCALE', 'pl');
+        return response;
+    }
+
+    const localesList = acceptedLocales.split(';');
+    const isPreferedPl = localesList[0].includes('pl');
+
+    if (isPreferedPl) {
+        response.cookies.set('NEXT_LOCALE', 'pl');
+    } else {
+        response.cookies.set('NEXT_LOCALE', 'en');
+    }
+
+    return response;
+};
+
 export async function middleware(request: NextRequest) {
-    return await updateSession(request);
+    const response = await updateSession(request);
+
+    return response.cookies.has('NEXT_LOCALE')
+        ? response
+        : updateLocale(request.headers.get('accept-language'), response);
 }
 
 export const config = {

@@ -3,13 +3,16 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { registerUser } from '@/components/auth/actions';
+import { registerUser } from '@/components/auth/_authActions';
 import Button from '@/components/ui/Button';
 import CustomLink from '@/components/ui/CustomLink';
 import { Input } from '@/components/ui/Input';
 import { Separator } from '@/components/ui/Separator';
 import { useToast } from '@/components/ui/Toast/useToast';
-import { url } from '@/utils/utils';
+import FormErrorMessagesDict from '@/dictionaries/FormErrorMessagesDict.json';
+import RegisterFormDict from '@/dictionaries/RegisterFormDict.json';
+import { useLocaleContext } from '@/providers/LocaleProvider';
+import { ERROR_KEYS, getErrorMessage, url } from '@/utils/utils';
 
 const REGISTER = {
     EMAIL: 'email',
@@ -19,8 +22,8 @@ const REGISTER = {
 
 const registerSchema = z
     .object({
-        [REGISTER.EMAIL]: z.string().email('Adres e-mail jest nieprawidłowy'),
-        [REGISTER.PASSWORD]: z.string().min(6, 'Hasło musi mieć przynajmniej 6 znaków'),
+        [REGISTER.EMAIL]: z.string().email(ERROR_KEYS.INCORRECT_EMAIL),
+        [REGISTER.PASSWORD]: z.string().min(6, ERROR_KEYS.INCORRECT_EMAIL),
         [REGISTER.CONFIRM_PASSWORD]: z.string(),
     })
     .refine(
@@ -28,7 +31,7 @@ const registerSchema = z
             return values[REGISTER.PASSWORD] === values[REGISTER.CONFIRM_PASSWORD];
         },
         {
-            message: 'Hasła się nie zgadzają',
+            message: ERROR_KEYS.PASSWORDS_DOESNT_MATCH,
             path: [REGISTER.CONFIRM_PASSWORD],
         }
     );
@@ -37,6 +40,10 @@ export type RegisterdData = z.infer<typeof registerSchema>;
 
 const RegisterForm = () => {
     const { toast } = useToast();
+    const locale = useLocaleContext();
+
+    const t = RegisterFormDict[locale];
+    const tFormErrorMessages: Record<string, string> = FormErrorMessagesDict[locale];
 
     const { register, handleSubmit, formState } = useForm({
         resolver: zodResolver(registerSchema),
@@ -56,7 +63,7 @@ const RegisterForm = () => {
 
     return (
         <section className="m-auto flex w-full max-w-md flex-col gap-6 px-4">
-            <h1 className="mb-4 text-xl font-bold">Rejestracja</h1>
+            <h1 className="mb-4 text-xl font-bold">{t.register}</h1>
             <form
                 onSubmit={handleSubmit(handleRegister)}
                 className="flex flex-col gap-6"
@@ -65,12 +72,12 @@ const RegisterForm = () => {
                     label={{
                         value: (
                             <>
-                                <span className="text-red-600">*</span> E-mail
+                                <span className="text-red-600">*</span> {t.email}
                             </>
                         ),
                     }}
                     placeholder="adres@mail.pl"
-                    error={formState.errors[REGISTER.EMAIL]?.message}
+                    error={getErrorMessage(formState.errors[REGISTER.EMAIL]?.message, tFormErrorMessages)}
                     {...register(REGISTER.EMAIL)}
                 />
                 <Input
@@ -78,11 +85,11 @@ const RegisterForm = () => {
                     label={{
                         value: (
                             <>
-                                <span className="text-red-600">*</span> Hasło
+                                <span className="text-red-600">*</span> {t.password}
                             </>
                         ),
                     }}
-                    error={formState.errors[REGISTER.PASSWORD]?.message}
+                    error={getErrorMessage(formState.errors[REGISTER.PASSWORD]?.message, tFormErrorMessages)}
                     {...register(REGISTER.PASSWORD)}
                 />
                 <Input
@@ -90,11 +97,11 @@ const RegisterForm = () => {
                     label={{
                         value: (
                             <>
-                                <span className="text-red-600">*</span> Powtórz hasło
+                                <span className="text-red-600">*</span> {t.confirmPassword}
                             </>
                         ),
                     }}
-                    error={formState.errors[REGISTER.CONFIRM_PASSWORD]?.message}
+                    error={getErrorMessage(formState.errors[REGISTER.CONFIRM_PASSWORD]?.message, tFormErrorMessages)}
                     {...register(REGISTER.CONFIRM_PASSWORD)}
                 />
 
@@ -102,7 +109,7 @@ const RegisterForm = () => {
                     className="w-full"
                     type="submit"
                 >
-                    Zarejestruj się
+                    {t.signUp}
                 </Button>
             </form>
             <div className="grid grid-cols-[1fr,auto,1fr] items-center gap-6">
@@ -111,12 +118,12 @@ const RegisterForm = () => {
                 <Separator className="my-4" />
             </div>
             <p>
-                Masz już konto?{' '}
+                {t.alreadyHaveAnAccount}{' '}
                 <CustomLink
                     className="font-medium"
                     href={url.login}
                 >
-                    Zaloguj się
+                    {t.signIn}
                 </CustomLink>
             </p>
         </section>

@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation';
 
 import { createClient } from '@/auth/server';
 import UpdatePassword from '@/components/auth/UpdatePassword';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
 import { url } from '@/utils/utils';
 
 export const metadata: Metadata = {
@@ -33,7 +34,10 @@ export default async function PrivatePage() {
                     alt=""
                 />
             </div>
-            <UpdatePassword />
+            <div className="flex flex-col items-center p-4">
+                <LanguageSwitcher />
+                <UpdatePassword />
+            </div>
         </main>
     );
 }

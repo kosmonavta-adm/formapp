@@ -1,5 +1,5 @@
 'use client';
-import { logoutUser } from '@/components/auth/actions';
+import { logoutUser } from '@/components/auth/_authActions';
 import Button from '@/components/ui/Button';
 
 const Dashboard = () => {

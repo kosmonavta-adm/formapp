@@ -1,0 +1,24 @@
+{
+    "pl": {
+        "register": "Rejestracja",
+        "email": "E-mail",
+        "password": "Hasło",
+        "confirmPassword": "Powtórz hasło",
+        "forgotPassword": "Zapomniałeś hasła?",
+        "signIn": "Zaloguj się",
+        "or": "lub",
+        "signUp": "Zarejestruj się",
+        "alreadyHaveAnAccount": "Masz już konto?"
+    },
+    "en": {
+        "register": "Registration",
+        "email": "Email",
+        "password": "Password",
+        "confirmPassword": "Confirm password",
+        "forgotPassword": "Forgot your password?",
+        "signIn": "Login",
+        "or": "or",
+        "signUp": "Register",
+        "alreadyHaveAnAccount": "Already have an account?"
+    }
+}

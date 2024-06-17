@@ -4,13 +4,16 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { loginUser } from '@/components/auth/actions';
+import { loginUser } from '@/components/auth/_authActions';
 import Button from '@/components/ui/Button';
 import CustomLink from '@/components/ui/CustomLink';
 import { Input } from '@/components/ui/Input';
 import { Separator } from '@/components/ui/Separator';
 import { useToast } from '@/components/ui/Toast/useToast';
-import { url } from '@/utils/utils';
+import FormErrorMessagesDict from '@/dictionaries/FormErrorMessagesDict.json';
+import LoginFormDict from '@/dictionaries/LoginFormDict.json';
+import { useLocaleContext } from '@/providers/LocaleProvider';
+import { ERROR_KEYS, getErrorMessage, url } from '@/utils/utils';
 
 const LOGIN = {
     EMAIL: 'email',
@@ -18,7 +21,7 @@ const LOGIN = {
 } as const;
 
 const loginSchema = z.object({
-    [LOGIN.EMAIL]: z.string().email('Adres e-mail jest nieprawidłowy'),
+    [LOGIN.EMAIL]: z.string().email(ERROR_KEYS.INCORRECT_EMAIL),
     [LOGIN.PASSWORD]: z.string(),
 });
 
@@ -27,6 +30,10 @@ export type LoginData = z.infer<typeof loginSchema>;
 const LoginForm = () => {
     const { toast } = useToast();
     const router = useRouter();
+    const locale = useLocaleContext();
+
+    const t = LoginFormDict[locale];
+    const tFormErrorMessages: Record<string, string> = FormErrorMessagesDict[locale];
 
     const { register, handleSubmit, formState } = useForm({
         resolver: zodResolver(loginSchema),
@@ -40,12 +47,12 @@ const LoginForm = () => {
         const error = await loginUser(formData);
 
         if (error === null) router.replace(url.dashboard);
-        else toast({ description: 'Mail lub hasło są nieprawidłowe' });
+        else toast({ description: t.mailOrPasswordAreIncorrect });
     };
 
     return (
-        <section className="m-auto flex w-full max-w-md flex-col gap-6 px-4">
-            <h1 className="mb-4 text-xl font-bold">Logowanie</h1>
+        <section className="m-auto flex w-full max-w-md flex-col gap-6">
+            <h1 className="mb-4 text-xl font-bold">{t.login}</h1>
             <form
                 onSubmit={handleSubmit(handleLogin)}
                 className="flex flex-col gap-6"
@@ -54,11 +61,11 @@ const LoginForm = () => {
                     label={{
                         value: (
                             <>
-                                <span className="text-red-600">*</span> E-mail
+                                <span className="text-red-600">*</span> {t.email}
                             </>
                         ),
                     }}
-                    error={formState.errors[LOGIN.EMAIL]?.message}
+                    error={getErrorMessage(formState.errors[LOGIN.EMAIL]?.message, tFormErrorMessages)}
                     placeholder="adres@mail.pl"
                     {...register(LOGIN.EMAIL)}
                 />
@@ -67,7 +74,7 @@ const LoginForm = () => {
                     label={{
                         value: (
                             <>
-                                <span className="text-red-600">*</span> Hasło
+                                <span className="text-red-600">*</span> {t.password}
                             </>
                         ),
                     }}
@@ -78,14 +85,14 @@ const LoginForm = () => {
                         href={url.forgotPassword}
                         className=""
                     >
-                        Zapomniałeś hasła?
+                        {t.forgotPassword}
                     </CustomLink>
-                    <Button type="submit">Zaloguj się</Button>
+                    <Button type="submit">{t.signIn}</Button>
                 </div>
             </form>
             <div className="grid grid-cols-[1fr,auto,1fr] items-center gap-6">
                 <Separator className="my-4" />
-                <p className="font-medium">lub</p>
+                <p className="font-medium">{t.or}</p>
                 <Separator className="my-4" />
             </div>
             <p>
@@ -93,9 +100,9 @@ const LoginForm = () => {
                     className="font-medium"
                     href={url.register}
                 >
-                    Załóż konto
+                    {t.signUp}
                 </CustomLink>{' '}
-                w naszym serwisie!
+                {t.inOurService}
             </p>
         </section>
     );

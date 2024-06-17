@@ -3,13 +3,16 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { resetPassword } from '@/components/auth/actions';
+import { resetPassword } from '@/components/auth/_authActions';
 import Button from '@/components/ui/Button';
 import CustomLink from '@/components/ui/CustomLink';
 import { Input } from '@/components/ui/Input';
 import { Separator } from '@/components/ui/Separator';
 import { useToast } from '@/components/ui/Toast/useToast';
-import { url } from '@/utils/utils';
+import ForgotPasswordDict from '@/dictionaries/ForgotPasswordDict.json';
+import FormErrorMessagesDict from '@/dictionaries/FormErrorMessagesDict.json';
+import { useLocaleContext } from '@/providers/LocaleProvider';
+import { getErrorMessage, url } from '@/utils/utils';
 
 const FORGOT_PASSWORD = {
     EMAIL: 'email',
@@ -23,6 +26,10 @@ export type ForgotPasswordData = z.infer<typeof forgotPasswordSchema>;
 
 const ForgotPassword = () => {
     const { toast } = useToast();
+    const locale = useLocaleContext();
+
+    const t = ForgotPasswordDict[locale];
+    const tFormErrorMessages: Record<string, string> = FormErrorMessagesDict[locale];
 
     const { register, handleSubmit, formState } = useForm({
         resolver: zodResolver(forgotPasswordSchema),
@@ -41,7 +48,7 @@ const ForgotPassword = () => {
 
     return (
         <section className="m-auto flex w-full max-w-md flex-col gap-6 px-4">
-            <h1 className="mb-4 text-xl font-bold">Resetowanie hasła</h1>
+            <h1 className="mb-4 text-xl font-bold">{t.passwordReset}</h1>
             <form
                 onSubmit={handleSubmit(handleForgotPassword)}
                 className="flex flex-col gap-6"
@@ -50,12 +57,12 @@ const ForgotPassword = () => {
                     label={{
                         value: (
                             <>
-                                <span className="text-red-600">*</span> E-mail
+                                <span className="text-red-600">*</span> {t.email}
                             </>
                         ),
                     }}
                     placeholder="adres@mail.pl"
-                    error={formState.errors[FORGOT_PASSWORD.EMAIL]?.message}
+                    error={getErrorMessage(formState.errors[FORGOT_PASSWORD.EMAIL]?.message, tFormErrorMessages)}
                     {...register(FORGOT_PASSWORD.EMAIL)}
                 />
 
@@ -64,13 +71,13 @@ const ForgotPassword = () => {
                         className="w-full"
                         type="submit"
                     >
-                        Zresetuj hasło
+                        {t.resetPassword}
                     </Button>
                 </div>
             </form>
             <div className="grid grid-cols-[1fr,auto,1fr] items-center gap-6">
                 <Separator className="my-4" />
-                <p className="font-medium">lub</p>
+                <p className="font-medium">{t.or}</p>
                 <Separator className="my-4" />
             </div>
             <p>
@@ -78,9 +85,9 @@ const ForgotPassword = () => {
                     className="font-medium"
                     href={url.login}
                 >
-                    Zaloguj się przy użyciu hasła
+                    {t.logInWithYourPassword}
                 </CustomLink>{' '}
-                w naszym serwisie!
+                {t.inOurService}
             </p>
         </section>
     );

@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import Image from 'next/image';
 
 import ForgotPassword from '@/components/auth/ForgotPassword';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
 
 export const metadata: Metadata = {
     title: 'Tymczasowy tytuł - resetowanie hasła',
@@ -24,7 +25,10 @@ export default function ForgotPasswordPage() {
                     alt=""
                 />
             </div>
-            <ForgotPassword />
+            <div className="flex flex-col items-center p-4">
+                <LanguageSwitcher />
+                <ForgotPassword />
+            </div>
         </main>
     );
 }
