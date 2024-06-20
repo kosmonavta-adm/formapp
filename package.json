@@ -8,7 +8,8 @@
         "start": "next start",
         "lint": "next lint",
         "tsc": "npx tsc --pretty --noEmit",
-        "svgr": "npx @svgr/cli --no-dimensions --no-prettier --jsx-runtime automatic --typescript --ignore-existing --out-dir ./src/components/icons -- ./icons/"
+        "svgr": "npx @svgr/cli --no-dimensions --no-prettier --jsx-runtime automatic --typescript --ignore-existing --out-dir ./src/components/icons -- ./icons/",
+        "gen-types": "npx supabase gen types typescript --linked --schema public > ./src/utils/dbTypes.ts"
     },
     "dependencies": {
         "@hookform/resolvers": "^3.6.0",

@@ -9,6 +9,21 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      domain: {
+        Row: {
+          domain: string
+          id: number
+        }
+        Insert: {
+          domain: string
+          id?: number
+        }
+        Update: {
+          domain?: string
+          id?: number
+        }
+        Relationships: []
+      }
       schedule: {
         Row: {
           created_at: string
