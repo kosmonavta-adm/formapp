@@ -24,6 +24,7 @@ export async function middleware(request: NextRequest) {
     const url = request.nextUrl;
     const hostname = request.headers.get('host')!.replace('.localhost:3000', `.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`);
 
+    console.log('🚀 ~ middleware ~ hostname:', hostname);
     if (hostname === 'localhost:3000' || hostname === process.env.NEXT_PUBLIC_ROOT_DOMAIN) {
         const response = await updateSession(request);
         return response.cookies.has('NEXT_LOCALE')
