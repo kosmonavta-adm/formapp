@@ -21,11 +21,20 @@ const updateLocale = (acceptedLocales: string | null, response: NextResponse<unk
 };
 
 export async function middleware(request: NextRequest) {
-    const response = await updateSession(request);
+    const url = request.nextUrl;
+    // eslint-disable-next-line no-console
+    console.log('🚀 ~ middleware ~ url:', url);
 
-    return response.cookies.has('NEXT_LOCALE')
-        ? response
-        : updateLocale(request.headers.get('accept-language'), response);
+    if (url.host === process.env.NEXT_PUBLIC_ROOT_DOMAIN || url.hostname === 'localhost:3000') {
+        const response = await updateSession(request);
+        return response.cookies.has('NEXT_LOCALE')
+            ? response
+            : updateLocale(request.headers.get('accept-language'), response);
+    } else {
+        const searchParams = request.nextUrl.searchParams.toString();
+        const path = `${url.pathname}${searchParams.length > 0 ? `?${searchParams}` : ''}`;
+        return NextResponse.rewrite(new URL(`/${url.hostname}${path}`, request.url));
+    }
 }
 
 export const config = {
