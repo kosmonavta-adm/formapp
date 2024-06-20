@@ -22,11 +22,10 @@ const updateLocale = (acceptedLocales: string | null, response: NextResponse<unk
 
 export async function middleware(request: NextRequest) {
     const url = request.nextUrl;
-    const hostname = request.headers.get('host')!.replace('.localhost:3000', `.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`);
-
     // eslint-disable-next-line no-console
-    console.log('🚀 ~ middleware ~ hostname:', hostname);
-    if (hostname === 'localhost:3000' || hostname === process.env.NEXT_PUBLIC_ROOT_DOMAIN) {
+    console.log('🚀 ~ middleware ~ url:', url);
+
+    if (url.host === process.env.NEXT_PUBLIC_ROOT_DOMAIN || url.hostname === 'localhost:3000') {
         const response = await updateSession(request);
         return response.cookies.has('NEXT_LOCALE')
             ? response
@@ -34,7 +33,7 @@ export async function middleware(request: NextRequest) {
     } else {
         const searchParams = request.nextUrl.searchParams.toString();
         const path = `${url.pathname}${searchParams.length > 0 ? `?${searchParams}` : ''}`;
-        return NextResponse.rewrite(new URL(`/${hostname}${path}`, request.url));
+        return NextResponse.rewrite(new URL(`/${url.hostname}${path}`, request.url));
     }
 }
 
