@@ -1,0 +1,16 @@
+{
+    "pl": {
+        "editSchedule": "Edycja harmonogramu",
+        "returnToEditRange": "Wróć do edycji zakresu harmonogramu",
+        "save": "Zapisz",
+        "scheduleAdded": "Harmonogram został dodany",
+        "errorWhileAddingSchedule": "Wystąpił błąd, spróbuj ponownie później"
+    },
+    "en": {
+        "editSchedule": "Edit schedule",
+        "returnToEditRange": "Return to edit range",
+        "save": "Save",
+        "scheduleAdded": "The schedule has been added",
+        "errorWhileAddingSchedule": "An error occurred, try again later"
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "pl": {
+        "scheduleAvailability": "Do kiedy chcesz udostępnić harmonogram?",
+        "choosePreset": "Wybierz gotowy zakres",
+        "chooseOwnRange": "Wybierz własny zakres",
+        "next": "Dalej"
+    },
+    "en": {
+        "scheduleAvailability": "By what date when do you want to make the schedule available?",
+        "choosePreset": "Select a preset range",
+        "chooseOwnRange": "Select custom range",
+        "next": "Next"
+    }
+}

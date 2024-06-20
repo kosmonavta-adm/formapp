@@ -7,6 +7,6 @@
     "singleQuote": true,
     "singleAttributePerLine": true,
     "bracketSpacing": true,
-    "tailwindFunctions": ["clsx"],
+    "tailwindFunctions": ["clsx, cxTw"],
     "plugins": ["prettier-plugin-tailwindcss"]
 }

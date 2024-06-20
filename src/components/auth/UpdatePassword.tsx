@@ -10,7 +10,7 @@ import { Input } from '@/components/ui/Input';
 import FormErrorMessagesDict from '@/dictionaries/FormErrorMessagesDict.json';
 import UpdatePasswordDict from '@/dictionaries/UpdatePasswordDict.json';
 import { useLocaleContext } from '@/providers/LocaleProvider';
-import { ERROR_KEYS, getErrorMessage, url } from '@/utils/utils';
+import { ERROR_KEYS, getFormErrorMessage, url } from '@/utils/utils';
 
 const UPDATE_PASSWORD = {
     NEW_PASSWORD: 'newPassword',
@@ -71,7 +71,10 @@ const UpdatePassword = () => {
                             </>
                         ),
                     }}
-                    error={getErrorMessage(formState.errors[UPDATE_PASSWORD.NEW_PASSWORD]?.message, tFormErrorMessages)}
+                    error={getFormErrorMessage(
+                        formState.errors[UPDATE_PASSWORD.NEW_PASSWORD]?.message,
+                        tFormErrorMessages
+                    )}
                     {...register(UPDATE_PASSWORD.NEW_PASSWORD)}
                 />
                 <Input
@@ -83,7 +86,7 @@ const UpdatePassword = () => {
                             </>
                         ),
                     }}
-                    error={getErrorMessage(
+                    error={getFormErrorMessage(
                         formState.errors[UPDATE_PASSWORD.CONFIRM_NEW_PASSWORD]?.message,
                         tFormErrorMessages
                     )}

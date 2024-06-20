@@ -1,12 +1,20 @@
 {
     "pl": {
+        "required": "Pole jest wymagane",
         "minLength": "Hasło musi mieć przynajmniej 6 znaków",
         "incorrectEmail": "Adres e-mail jest nieprawidłowy",
-        "passwordsDoesntMatch": "Hasła się nie zgadzają"
+        "passwordsDoesntMatch": "Hasła się nie zgadzają",
+        "endBeforeStart": "Godzina końca pracy nie może być wcześniejsza od godziny rozpoczęcia",
+        "startAfterEnd": "Godzina rozpoczęcia pracy nie może być późnieja od godziny zakończenia",
+        "endAfterMidnight": "Koniec pracy musi być w ramach tego samego dnia"
     },
     "en": {
+        "required": "Field is required",
         "minLength": "The password must have at least 6 characters",
         "incorrectEmail": "Email address is invalid",
-        "passwordsDoesntMatch": "Passwords do not match"
+        "passwordsDoesntMatch": "Passwords do not match",
+        "endBeforeStart": "The hour of the end of work cannot be earlier than the hour of the beginning",
+        "startAfterEnd": "The start time of the work cannot be later than the end time",
+        "endAfterMidnight": "Koniec pracy musi być w ramach tego samego dnia"
     }
 }

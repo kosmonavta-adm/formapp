@@ -1,0 +1,20 @@
+{
+    "pl": {
+        "delete": "Usuń",
+        "deselect": "Odznacz",
+        "allWorkdays": "Wszystkie dni robocze",
+        "allWeekends": "Wszystkie weekendy",
+        "dayWithSchedule": "A day with a schedule",
+        "selectedDayWithoutSchedule": "Zaznaczony dzień bez harmonogramu",
+        "selectedDayWithSchedule": "Zaznaczony dzień z harmonogramem"
+    },
+    "en": {
+        "delete": "Delete",
+        "deselect": "Deselect",
+        "allWorkdays": "All workdays",
+        "allWeekends": "All weekends",
+        "dayWithSchedule": "A day with a schedule",
+        "selectedDayWithoutSchedule": "Selected day with schedule",
+        "selectedDayWithSchedule": "Selected day with schedule"
+    }
+}

@@ -12,7 +12,7 @@ import { useToast } from '@/components/ui/Toast/useToast';
 import FormErrorMessagesDict from '@/dictionaries/FormErrorMessagesDict.json';
 import RegisterFormDict from '@/dictionaries/RegisterFormDict.json';
 import { useLocaleContext } from '@/providers/LocaleProvider';
-import { ERROR_KEYS, getErrorMessage, url } from '@/utils/utils';
+import { ERROR_KEYS, getFormErrorMessage, url } from '@/utils/utils';
 
 const REGISTER = {
     EMAIL: 'email',
@@ -23,7 +23,7 @@ const REGISTER = {
 const registerSchema = z
     .object({
         [REGISTER.EMAIL]: z.string().email(ERROR_KEYS.INCORRECT_EMAIL),
-        [REGISTER.PASSWORD]: z.string().min(6, ERROR_KEYS.INCORRECT_EMAIL),
+        [REGISTER.PASSWORD]: z.string().min(6, ERROR_KEYS.MIN_LENGTH),
         [REGISTER.CONFIRM_PASSWORD]: z.string(),
     })
     .refine(
@@ -77,7 +77,7 @@ const RegisterForm = () => {
                         ),
                     }}
                     placeholder="adres@mail.pl"
-                    error={getErrorMessage(formState.errors[REGISTER.EMAIL]?.message, tFormErrorMessages)}
+                    error={getFormErrorMessage(formState.errors[REGISTER.EMAIL]?.message, tFormErrorMessages)}
                     {...register(REGISTER.EMAIL)}
                 />
                 <Input
@@ -89,7 +89,7 @@ const RegisterForm = () => {
                             </>
                         ),
                     }}
-                    error={getErrorMessage(formState.errors[REGISTER.PASSWORD]?.message, tFormErrorMessages)}
+                    error={getFormErrorMessage(formState.errors[REGISTER.PASSWORD]?.message, tFormErrorMessages)}
                     {...register(REGISTER.PASSWORD)}
                 />
                 <Input
@@ -101,7 +101,10 @@ const RegisterForm = () => {
                             </>
                         ),
                     }}
-                    error={getErrorMessage(formState.errors[REGISTER.CONFIRM_PASSWORD]?.message, tFormErrorMessages)}
+                    error={getFormErrorMessage(
+                        formState.errors[REGISTER.CONFIRM_PASSWORD]?.message,
+                        tFormErrorMessages
+                    )}
                     {...register(REGISTER.CONFIRM_PASSWORD)}
                 />
 
