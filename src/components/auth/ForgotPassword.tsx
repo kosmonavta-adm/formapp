@@ -12,7 +12,7 @@ import { useToast } from '@/components/ui/Toast/useToast';
 import ForgotPasswordDict from '@/dictionaries/ForgotPasswordDict.json';
 import FormErrorMessagesDict from '@/dictionaries/FormErrorMessagesDict.json';
 import { useLocaleContext } from '@/providers/LocaleProvider';
-import { getErrorMessage, url } from '@/utils/utils';
+import { getFormErrorMessage, url } from '@/utils/utils';
 
 const FORGOT_PASSWORD = {
     EMAIL: 'email',
@@ -62,7 +62,7 @@ const ForgotPassword = () => {
                         ),
                     }}
                     placeholder="adres@mail.pl"
-                    error={getErrorMessage(formState.errors[FORGOT_PASSWORD.EMAIL]?.message, tFormErrorMessages)}
+                    error={getFormErrorMessage(formState.errors[FORGOT_PASSWORD.EMAIL]?.message, tFormErrorMessages)}
                     {...register(FORGOT_PASSWORD.EMAIL)}
                 />
 

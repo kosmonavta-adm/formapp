@@ -1,5 +1,5 @@
 import type { SVGProps } from 'react';
-const SvgArrowDown = (props: SVGProps<SVGSVGElement>) => (
+const SvgCheck = (props: SVGProps<SVGSVGElement>) => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -14,7 +14,7 @@ const SvgArrowDown = (props: SVGProps<SVGSVGElement>) => (
             stroke="none"
             d="M0 0h24v24H0z"
         />
-        <path d="m6 9 6 6 6-6" />
+        <path d="m5 12 5 5L20 7" />
     </svg>
 );
-export default SvgArrowDown;
+export default SvgCheck;

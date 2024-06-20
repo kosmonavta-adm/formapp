@@ -13,7 +13,7 @@ import { useToast } from '@/components/ui/Toast/useToast';
 import FormErrorMessagesDict from '@/dictionaries/FormErrorMessagesDict.json';
 import LoginFormDict from '@/dictionaries/LoginFormDict.json';
 import { useLocaleContext } from '@/providers/LocaleProvider';
-import { ERROR_KEYS, getErrorMessage, url } from '@/utils/utils';
+import { ERROR_KEYS, getFormErrorMessage, url } from '@/utils/utils';
 
 const LOGIN = {
     EMAIL: 'email',
@@ -65,7 +65,7 @@ const LoginForm = () => {
                             </>
                         ),
                     }}
-                    error={getErrorMessage(formState.errors[LOGIN.EMAIL]?.message, tFormErrorMessages)}
+                    error={getFormErrorMessage(formState.errors[LOGIN.EMAIL]?.message, tFormErrorMessages)}
                     placeholder="adres@mail.pl"
                     {...register(LOGIN.EMAIL)}
                 />

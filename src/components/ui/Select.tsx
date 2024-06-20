@@ -4,8 +4,9 @@ import * as SelectPrimitive from '@radix-ui/react-select';
 import { ComponentPropsWithoutRef, ReactNode, useId } from 'react';
 import { ClassNameValue } from 'tailwind-merge';
 
-import { ArrowDown } from '@/components/icons';
+import { ChevronDown } from '@/components/icons';
 import ErrorText from '@/components/ui/ErrorText';
+import { Label } from '@/components/ui/Label';
 import { cxTw } from '@/utils/utils';
 
 const SelectRoot = SelectPrimitive.Root;
@@ -16,12 +17,12 @@ const SelectValue = SelectPrimitive.Value;
 
 const SelectTrigger = ({ children, ...props }: ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>) => (
     <SelectPrimitive.Trigger
-        className="flex h-11 w-full items-center justify-between rounded border border-blue-100 bg-white px-3 py-1 text-base text-black shadow-sm transition-colors focus:outline-none focus:ring-1 focus-visible:outline-none focus-visible:ring-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1"
+        className="flex h-10 w-full items-center justify-between rounded-md border border-neutral-300 px-3 py-2 text-sm placeholder:text-neutral-400 focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:bg-neutral-50 disabled:opacity-50"
         {...props}
     >
         {children}
         <SelectPrimitive.Icon asChild>
-            <ArrowDown
+            <ChevronDown
                 className="content-end"
                 width={16}
                 height={16}
@@ -38,7 +39,7 @@ const SelectContent = ({
     <SelectPrimitive.Portal>
         <SelectPrimitive.Content
             className={cxTw(
-                'relative top-1 z-50 flex max-h-96 max-w-[calc(100%-2px)] flex-col gap-1 overflow-hidden rounded border border-blue-100 bg-white shadow-md'
+                'relative top-1 z-50 flex max-h-96 max-w-[calc(100%-2px)] flex-col gap-1 overflow-hidden rounded-md border border-neutral-300 bg-white text-sm shadow-md'
             )}
             position={position}
             {...props}
@@ -82,12 +83,12 @@ export const Select = ({ children, label, className, placeholder, error, ...prop
     return (
         <div className={cxTw('flex w-full flex-col gap-2', className)}>
             {isLabelGiven && (
-                <label
+                <Label
                     className={cxTw('w-fit font-medium text-black', label.className)}
                     htmlFor={id}
                 >
                     {label.name}
-                </label>
+                </Label>
             )}
             <SelectRoot {...props}>
                 <SelectTrigger id={id}>

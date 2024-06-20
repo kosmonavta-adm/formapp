@@ -1,0 +1,18 @@
+{
+    "pl": {
+        "date": "Data",
+        "appointmentsCount": "Ilość spotkań",
+        "workTime": "Czas pracy",
+        "durationOfAppointment": "Czas trwania spotkania",
+        "deleteSelectedThisMonth": "Usuń zaznaczone w tym miesiącu",
+        "breaks": "przerwy"
+    },
+    "en": {
+        "date": "Data",
+        "appointmentsCount": "Number of appointments",
+        "workTime": "Work time",
+        "durationOfAppointment": "Duration of the appointment",
+        "deleteSelectedThisMonth": "Delete selected this month",
+        "breaks": "breaks"
+    }
+}

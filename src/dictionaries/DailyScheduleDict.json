@@ -1,0 +1,18 @@
+{
+    "pl": {
+        "dailySchedule": "Harmonogram dnia",
+        "durationOfTheMeeting": "Czas trwania spotkania w minutach",
+        "beggining": "Godzina rozpoczęcia pracy",
+        "end": "Godzina zakończenia pracy",
+        "meetingInterval": "Przerwa między spotkaniami",
+        "apply": "Zastosuj"
+    },
+    "en": {
+        "dailySchedule": "Daily schedule",
+        "durationOfTheMeeting": "Meeting duration in minutes",
+        "beggining": "Start time of work",
+        "end": "Work end time",
+        "meetingInterval": "Interval between meetings",
+        "apply": "Apply"
+    }
+}
