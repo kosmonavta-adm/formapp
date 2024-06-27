@@ -3,7 +3,7 @@
 import { createClient } from '@/auth/server';
 import { ForgotPasswordData } from '@/components/auth/ForgotPassword';
 import { LoginData } from '@/components/auth/LoginForm';
-import { RegisterdData } from '@/components/auth/RegisterForm';
+import { REGISTER } from '@/components/auth/RegisterForm';
 import { UpdateasswordData } from '@/components/auth/UpdatePassword';
 
 export async function loginUser(formData: LoginData) {
@@ -14,10 +14,20 @@ export async function loginUser(formData: LoginData) {
     return error === null ? null : error.message;
 }
 
-export async function registerUser(formData: RegisterdData) {
+type RegisterUserData = {
+    [REGISTER.EMAIL]: string;
+    [REGISTER.ADDRESS]: string;
+    [REGISTER.PASSWORD]: string;
+};
+
+export async function registerUser(formData: RegisterUserData) {
     const supabase = createClient();
 
-    const { error } = await supabase.auth.signUp(formData);
+    const { address, ...restFormData } = formData;
+
+    const newFormData = { ...restFormData, options: { data: { address } } };
+
+    const { error } = await supabase.auth.signUp(newFormData);
 
     return error === null ? null : error.message;
 }

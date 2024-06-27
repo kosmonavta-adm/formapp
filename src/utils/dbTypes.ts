@@ -9,26 +9,26 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      domain: {
+      customer_form: {
         Row: {
-          domain: string
           form_id: number | null
           id: number
           schedule_id: number | null
+          subdomain: string
           user_id: string | null
         }
         Insert: {
-          domain: string
           form_id?: number | null
           id?: number
           schedule_id?: number | null
+          subdomain: string
           user_id?: string | null
         }
         Update: {
-          domain?: string
           form_id?: number | null
           id?: number
           schedule_id?: number | null
+          subdomain?: string
           user_id?: string | null
         }
         Relationships: [
@@ -74,6 +74,27 @@ export type Database = {
           is_active?: boolean | null
           name?: string | null
           schema?: Json
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profile: {
+        Row: {
+          created_at: string
+          id: number
+          subdomain: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          subdomain: string
+          user_id?: string
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          subdomain?: string
           user_id?: string
         }
         Relationships: []

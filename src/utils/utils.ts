@@ -16,12 +16,15 @@ export const cxTw = (...classes: ClassValue[]) => twMerge(clsx(...classes));
 
 export const ERROR_KEYS = {
     REQUIRED: 'required',
-    MIN_LENGTH: 'minLength',
+    PASSWORD_MIN_LENGTH: 'passwordMinLength',
+    ADDRESS_MIN_LENGTH: 'addressMinLength',
+    ADDRESS_MAX_LENGTH: 'addressMaxLength',
     INCORRECT_EMAIL: 'incorrectEmail',
     PASSWORDS_DOESNT_MATCH: 'passwordsDoesntMatch',
     END_AFTER_MIDNIGHT: 'endAfterMidnight',
     SAME_END_AND_START: 'sameEndAndStart',
     LESS_THAN_ZERO: 'lessThanZero',
+    ADDRESS_ALREADY_TAKEN: 'addressAlreadyTaken',
 };
 
 export const getFormErrorMessage = <T, K extends keyof T | undefined>(key: K, dict: T) => {

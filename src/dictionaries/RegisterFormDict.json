@@ -2,6 +2,7 @@
     "pl": {
         "register": "Rejestracja",
         "email": "E-mail",
+        "siteAddress": "Adres strony",
         "password": "Hasło",
         "confirmPassword": "Powtórz hasło",
         "forgotPassword": "Zapomniałeś hasła?",
@@ -13,6 +14,7 @@
     "en": {
         "register": "Registration",
         "email": "Email",
+        "siteAddress": "Site address",
         "password": "Password",
         "confirmPassword": "Confirm password",
         "forgotPassword": "Forgot your password?",

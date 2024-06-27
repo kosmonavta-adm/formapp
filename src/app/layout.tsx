@@ -6,6 +6,7 @@ import { cookies } from 'next/headers';
 
 import { Toaster } from '@/components/ui/Toast/Toaster';
 import LocaleProvider from '@/providers/LocaleProvider';
+import ReactQueryProvider from '@/providers/ReactQueryProvider';
 
 const mavenPro = Maven_Pro({ subsets: ['latin'] });
 
@@ -23,7 +24,9 @@ export default function RootLayout({
     return (
         <html lang="pl">
             <body className={mavenPro.className}>
-                <LocaleProvider locale={locale}>{children}</LocaleProvider>
+                <ReactQueryProvider>
+                    <LocaleProvider locale={locale}>{children}</LocaleProvider>
+                </ReactQueryProvider>
                 <Toaster />
             </body>
         </html>
