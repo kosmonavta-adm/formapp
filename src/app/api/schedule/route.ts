@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ status: 401, error: null });
 }
 
-export async function UPDATE(request: NextRequest) {
+export async function PATCH(request: NextRequest) {
     const supabase = createClient();
 
     const userBack = await supabase.auth.getUser();
