@@ -12,15 +12,69 @@ export type Database = {
       domain: {
         Row: {
           domain: string
+          form_id: number | null
           id: number
+          schedule_id: number | null
+          user_id: string | null
         }
         Insert: {
           domain: string
+          form_id?: number | null
           id?: number
+          schedule_id?: number | null
+          user_id?: string | null
         }
         Update: {
           domain?: string
+          form_id?: number | null
           id?: number
+          schedule_id?: number | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "domain_form_id_fkey"
+            columns: ["form_id"]
+            isOneToOne: false
+            referencedRelation: "form"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "domain_schedule_id_fkey"
+            columns: ["schedule_id"]
+            isOneToOne: false
+            referencedRelation: "schedule"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      form: {
+        Row: {
+          blueprint: Json
+          created_at: string
+          id: number
+          is_active: boolean | null
+          name: string | null
+          schema: Json
+          user_id: string
+        }
+        Insert: {
+          blueprint: Json
+          created_at?: string
+          id?: number
+          is_active?: boolean | null
+          name?: string | null
+          schema: Json
+          user_id?: string
+        }
+        Update: {
+          blueprint?: Json
+          created_at?: string
+          id?: number
+          is_active?: boolean | null
+          name?: string | null
+          schema?: Json
+          user_id?: string
         }
         Relationships: []
       }

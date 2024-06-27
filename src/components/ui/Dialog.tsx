@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react';
 
 import { X } from '@/components/icons';
+import { cxTw } from '@/utils/utils';
 
 export const DialogContent = forwardRef<
     ElementRef<typeof DialogPrimitive.Content>,
@@ -36,7 +37,10 @@ export const DialogContent = forwardRef<
                         <DialogPrimitive.Content
                             {...props}
                             ref={ref}
-                            className="absolute inset-0 left-80 m-auto flex h-min w-full max-w-md flex-col rounded-md bg-white p-4 lg:left-96"
+                            className={cxTw(
+                                'absolute inset-0 left-80 m-auto flex h-min w-full max-w-md flex-col rounded-md bg-white p-4 lg:left-96',
+                                className
+                            )}
                             asChild
                         >
                             <motion.div

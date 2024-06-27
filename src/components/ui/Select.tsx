@@ -2,7 +2,6 @@
 
 import * as SelectPrimitive from '@radix-ui/react-select';
 import { ComponentPropsWithoutRef, ReactNode, useId } from 'react';
-import { ClassNameValue } from 'tailwind-merge';
 
 import { ChevronDown } from '@/components/icons';
 import ErrorText from '@/components/ui/ErrorText';
@@ -15,9 +14,12 @@ const SelectGroup = SelectPrimitive.Group;
 
 const SelectValue = SelectPrimitive.Value;
 
-const SelectTrigger = ({ children, ...props }: ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>) => (
+const SelectTrigger = ({ children, className, ...props }: ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>) => (
     <SelectPrimitive.Trigger
-        className="flex h-10 w-full items-center justify-between rounded-md border border-neutral-300 px-3 py-2 text-sm placeholder:text-neutral-400 focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:bg-neutral-50 disabled:opacity-50"
+        className={cxTw(
+            'flex h-10 w-full items-center justify-between rounded-md border border-neutral-300 px-3 py-2 text-sm placeholder:text-neutral-400 focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:bg-neutral-50 disabled:opacity-50',
+            className
+        )}
         {...props}
     >
         {children}
@@ -71,7 +73,7 @@ type SelectProps = {
         name: string;
         className?: string;
     };
-    className?: ClassNameValue;
+    className?: string;
     placeholder?: ReactNode;
     error?: string;
 } & SelectPrimitive.SelectProps;
@@ -81,17 +83,20 @@ export const Select = ({ children, label, className, placeholder, error, ...prop
     const isLabelGiven = label !== undefined;
 
     return (
-        <div className={cxTw('flex w-full flex-col gap-2', className)}>
+        <div className={cxTw('flex w-full flex-col gap-2')}>
             {isLabelGiven && (
                 <Label
-                    className={cxTw('w-fit font-medium text-black', label.className)}
+                    className={cxTw(label.className)}
                     htmlFor={id}
                 >
                     {label.name}
                 </Label>
             )}
             <SelectRoot {...props}>
-                <SelectTrigger id={id}>
+                <SelectTrigger
+                    className={className}
+                    id={id}
+                >
                     <SelectValue placeholder={placeholder} />
                 </SelectTrigger>
                 <SelectContent>
