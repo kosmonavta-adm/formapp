@@ -23,7 +23,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({ className, type, label
     const isInputPassword = type === 'password';
 
     return (
-        <div className="flex flex-col gap-2">
+        <div className="flex w-full flex-col gap-2">
             {label !== undefined && (
                 <Label
                     htmlFor={id}

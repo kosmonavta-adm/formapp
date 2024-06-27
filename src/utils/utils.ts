@@ -8,6 +8,8 @@ export const url = {
     forgotPassword: '/auth/forgot-password',
     dashboard: '/dashboard',
     schedule: '/schedule',
+    formBuilder: '/form',
+    forms: '/forms',
 };
 
 export const cxTw = (...classes: ClassValue[]) => twMerge(clsx(...classes));

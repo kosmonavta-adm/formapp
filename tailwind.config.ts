@@ -14,6 +14,12 @@ const config: Config = {
                 ['4xl']: '1920px',
                 ['ultra']: '2560px',
             },
+            keyframes: {
+                pulse: {
+                    '0%, 100%': { opacity: '1' },
+                    '50%': { opacity: '0.2' },
+                },
+            },
         },
         fontFamily: {
             main: 'var(--main-font)',

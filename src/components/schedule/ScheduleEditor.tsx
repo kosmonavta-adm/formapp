@@ -46,7 +46,7 @@ const ScheduleEditor = ({ endDate, currentDate, setPhase }: ScheduleEditorProps)
     const handleSaveScheduledDays = async () => {
         const supabase = createClient();
         const user = await supabase.auth.getSession();
-        const authId = user.data.session?.user.id;
+        const userId = user.data.session?.user.id;
         const convertScheduledDaysToJSON = JSON.stringify(
             Array.from(scheduledDays.entries()).reduce<(ScheduleDay & { date: string })[]>(
                 (result, [date, scheduledDay]) => {
@@ -61,7 +61,7 @@ const ScheduleEditor = ({ endDate, currentDate, setPhase }: ScheduleEditorProps)
                 []
             )
         );
-        createSchedule.mutate({ user_id: authId, data: convertScheduledDaysToJSON });
+        createSchedule.mutate({ user_id: userId, data: convertScheduledDaysToJSON });
     };
 
     useEffect(() => {
