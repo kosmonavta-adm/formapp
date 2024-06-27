@@ -5,7 +5,6 @@ import { createClient } from '@/auth/server';
 import DashboardMainContainer from '@/components/DashboardMainContainer';
 import DesktopNavigation from '@/components/navigation/DesktopNavigation';
 import SidebarContainer from '@/components/SidebarContainer';
-import ReactQueryProvider from '@/providers/ReactQueryProvider';
 import { url } from '@/utils/utils';
 
 const layout = async ({ children }: { children: ReactNode }) => {
@@ -19,9 +18,7 @@ const layout = async ({ children }: { children: ReactNode }) => {
     return (
         <SidebarContainer>
             <DesktopNavigation />
-            <DashboardMainContainer>
-                <ReactQueryProvider>{children}</ReactQueryProvider>
-            </DashboardMainContainer>
+            <DashboardMainContainer>{children}</DashboardMainContainer>
         </SidebarContainer>
     );
 };

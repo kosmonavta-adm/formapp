@@ -19,8 +19,8 @@ const UPDATE_PASSWORD = {
 
 const updatePasswordSchema = z
     .object({
-        [UPDATE_PASSWORD.NEW_PASSWORD]: z.string().min(6, ERROR_KEYS.MIN_LENGTH),
-        [UPDATE_PASSWORD.CONFIRM_NEW_PASSWORD]: z.string().min(6, ERROR_KEYS.MIN_LENGTH),
+        [UPDATE_PASSWORD.NEW_PASSWORD]: z.string().min(6, ERROR_KEYS.PASSWORD_MIN_LENGTH),
+        [UPDATE_PASSWORD.CONFIRM_NEW_PASSWORD]: z.string().min(6, ERROR_KEYS.PASSWORD_MIN_LENGTH),
     })
     .refine(
         (values) => {

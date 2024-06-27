@@ -1,20 +1,26 @@
 {
     "pl": {
         "required": "Pole jest wymagane",
-        "minLength": "Hasło musi mieć przynajmniej 6 znaków",
+        "passwordMinLength": "Hasło musi mieć przynajmniej 6 znaków",
+        "addressMinLength": "Adres strony musi mieć co najmniej 1 znak",
+        "addressMaxLength": "Adres strony może mieć maksymalnie 32 znaki",
         "incorrectEmail": "Adres e-mail jest nieprawidłowy",
         "passwordsDoesntMatch": "Hasła się nie zgadzają",
         "endBeforeStart": "Godzina końca pracy nie może być wcześniejsza od godziny rozpoczęcia",
         "startAfterEnd": "Godzina rozpoczęcia pracy nie może być późnieja od godziny zakończenia",
-        "endAfterMidnight": "Koniec pracy musi być w ramach tego samego dnia"
+        "endAfterMidnight": "Koniec pracy musi być w ramach tego samego dnia",
+        "addressAlreadyTaken": "Adres jest już zajęty"
     },
     "en": {
         "required": "Field is required",
-        "minLength": "The password must have at least 6 characters",
+        "passwordMinLength": "The password must have at least 6 characters",
+        "addressMinLength": "The website address must have at least 1 character",
+        "addressMaxLength": "The page address can have a maximum of 32 characters",
         "incorrectEmail": "Email address is invalid",
         "passwordsDoesntMatch": "Passwords do not match",
         "endBeforeStart": "The hour of the end of work cannot be earlier than the hour of the beginning",
         "startAfterEnd": "The start time of the work cannot be later than the end time",
-        "endAfterMidnight": "Koniec pracy musi być w ramach tego samego dnia"
+        "endAfterMidnight": "Koniec pracy musi być w ramach tego samego dnia",
+        "addressAlreadyTaken": "Address is already taken"
     }
 }
