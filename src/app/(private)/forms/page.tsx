@@ -1,9 +1,6 @@
 import { Metadata } from 'next';
-import Link from 'next/link';
 
-import FormsTable from '@/components/forms/FormsTable';
-import Button from '@/components/ui/Button';
-import { url } from '@/utils/utils';
+import Forms from '@/components/forms/Forms';
 
 export const metadata: Metadata = {
     title: 'Tymczasowy tytuł - panel administrator',
@@ -13,12 +10,5 @@ export const metadata: Metadata = {
 };
 
 export default async function FormPage() {
-    return (
-        <div>
-            <Button asChild>
-                <Link href={url.formBuilder}>Dodaj formularz</Link>
-            </Button>
-            <FormsTable />
-        </div>
-    );
+    return <Forms />;
 }

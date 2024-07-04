@@ -1,11 +1,19 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { differenceInMinutes, intervalToDuration, isAfter, isBefore, isSameMinute, startOfDay } from 'date-fns';
+import {
+    differenceInMinutes,
+    formatISO,
+    intervalToDuration,
+    isAfter,
+    isBefore,
+    isSameMinute,
+    startOfDay,
+} from 'date-fns';
 import { Dispatch, SetStateAction } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { ScheduleDays } from '@/components/schedule/ScheduleEditor';
+import { ScheduleDays } from '@/components/schedule/ScheduleWizardDayEdit';
 import Button from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import DailyScheduleDict from '@/dictionaries/DailyScheduleDict.json';
@@ -20,7 +28,7 @@ const DAILY_SCHEDULE = {
     MEETING_INTERVAL: 'meetingInterval',
 } as const;
 
-const addDoctordSchema = z
+const dailyScheduleSchema = z
     .object({
         [DAILY_SCHEDULE.MEETING_DURATION]: z
             .string()
@@ -56,7 +64,7 @@ const addDoctordSchema = z
         }
     });
 
-export type DailyScheduleData = z.infer<typeof addDoctordSchema>;
+export type DailyScheduleData = z.infer<typeof dailyScheduleSchema>;
 
 type DailyScheduleProps = {
     selectedDays: Date[];
@@ -71,7 +79,7 @@ const DailySchedule = ({ setScheduledDays, selectedDays, setSelectedDays }: Dail
     const tFormErrorMessages: Record<string, string> = FormErrorMessagesDict[locale];
 
     const { register, handleSubmit, formState, reset } = useForm({
-        resolver: zodResolver(addDoctordSchema),
+        resolver: zodResolver(dailyScheduleSchema),
         defaultValues: {
             [DAILY_SCHEDULE.MEETING_DURATION]: '',
             [DAILY_SCHEDULE.START_TIME]: '',
@@ -98,14 +106,18 @@ const DailySchedule = ({ setScheduledDays, selectedDays, setSelectedDays }: Dail
             workdayDuration,
             appointmentsPerDay,
         };
+
         setScheduledDays((prevScheduledDays) => {
             const newScheduledDays = new Map(prevScheduledDays);
             selectedDays.forEach((selectedDay) => {
-                newScheduledDays.set(selectedDay.toISOString(), parsedScheduledDay);
+                const date = formatISO(startOfDay(selectedDay));
+                newScheduledDays.set(date, { ...parsedScheduledDay, date });
             });
             return newScheduledDays;
         });
+
         setSelectedDays([]);
+
         reset();
     };
 

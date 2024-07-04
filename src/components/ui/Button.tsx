@@ -22,9 +22,9 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         const isLarge = size === 'lg';
 
         const css = cxTw(
-            `inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-md font-medium
+            `inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap font-medium
         transition-colors w-fit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none`,
-            isPrimary && 'bg-blue-400 text-white hover:bg-blue-500 disabled:bg-neutral-200',
+            isPrimary && 'bg-black text-white hover:bg-neutral-900 disabled:bg-neutral-200',
             isSecondary && 'bg-neutral-100 hover:bg-neutral-100 hover:text-neutral-600',
             isGhost && 'hover:text-neutral-600',
             isDestructive && 'bg-red-500 text-white hover:bg-red-600',
