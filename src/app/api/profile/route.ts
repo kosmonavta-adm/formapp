@@ -1,3 +1,3 @@
-import { getProfileQuery } from '@/components/profile/getProfile.server';
+import { getProfile } from '@/components/profile/getProfile.server';
 
-export const GET = getProfileQuery;
+export const GET = getProfile;

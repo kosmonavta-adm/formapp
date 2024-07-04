@@ -53,7 +53,7 @@ export type Database = {
           blueprint: Json
           created_at: string
           id: number
-          is_active: boolean
+          is_published: boolean
           name: string
           schema: Json
           user_id: string
@@ -62,7 +62,7 @@ export type Database = {
           blueprint: Json
           created_at?: string
           id?: number
-          is_active?: boolean
+          is_published?: boolean
           name: string
           schema: Json
           user_id?: string
@@ -71,7 +71,7 @@ export type Database = {
           blueprint?: Json
           created_at?: string
           id?: number
-          is_active?: boolean
+          is_published?: boolean
           name?: string
           schema?: Json
           user_id?: string

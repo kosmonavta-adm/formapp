@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { profileKeys, profileSchema } from '@/components/profile/_profileUtils';
 
-export const useGetFormQuery = () => {
+export const useGetProfileQuery = () => {
     const queryKey = profileKeys.single;
 
     const queryFn = async () => {

@@ -42,7 +42,7 @@ const FormVisualizer = () => {
             blueprint: formBlueprintJson,
             name: formName,
             schema: formSchema,
-            is_active: false,
+            is_published: false,
         });
 
         router.replace(url.forms);

@@ -4,7 +4,10 @@ import { format } from 'date-fns/format';
 import { pl } from 'date-fns/locale/pl';
 import Link from 'next/link';
 
+import { useUpdateCustomerFormMutation } from '@/components/customerForm/queries/updateCustomerForm.client';
+import { useGetProfileQuery } from '@/components/profile/getProfile.client';
 import { ScheduleSchemaRevived } from '@/components/schedule/queries/_scheduleQueriesUtils';
+import { useUpdateScheduleMutation } from '@/components/schedule/queries/updateSchedule.client';
 import Button from '@/components/ui/Button';
 import { url } from '@/utils/utils';
 
@@ -13,6 +16,18 @@ type SchedulesTableProps = {
 };
 
 const SchedulesTable = ({ schedulesData }: SchedulesTableProps) => {
+    const updateSchedule = useUpdateScheduleMutation();
+    const updateCustomerForm = useUpdateCustomerFormMutation();
+    const profile = useGetProfileQuery();
+
+    const handlePublishSchedule = ({ id, isPublished }: { id: number; isPublished: boolean }) => {
+        updateSchedule.mutate({ id, data: { is_published: !isPublished } });
+        if (isPublished) {
+            updateCustomerForm.mutate({ customerFormData: { schedule_id: id }, subdomain: null });
+        } else {
+            updateCustomerForm.mutate({ customerFormData: { schedule_id: id }, subdomain: profile.data?.subdomain });
+        }
+    };
     return (
         <div className="border border-neutral-100">
             <div className="grid grid-cols-[1fr,1fr,1fr,300px] bg-neutral-50 p-4">
@@ -21,7 +36,7 @@ const SchedulesTable = ({ schedulesData }: SchedulesTableProps) => {
                 <p className="font-medium">Status</p>
             </div>
             {schedulesData.map((schedule) => {
-                const editUrl = new URL(`${url.schedules}/edit/${schedule.id}`, process.env.NEXT_PUBLIC_ROOT_DOMAIN);
+                const editUrl = `${url.schedules}/edit/${schedule.id}`;
 
                 return (
                     <div
@@ -33,10 +48,12 @@ const SchedulesTable = ({ schedulesData }: SchedulesTableProps) => {
                         <p>{schedule.isPublished ? 'Opublikowany' : 'Nieopublikowany'}</p>
                         <div className="flex gap-4">
                             <Button
-                                asChild
                                 variant="ghost"
+                                onClick={() =>
+                                    handlePublishSchedule({ id: schedule.id, isPublished: schedule.isPublished })
+                                }
                             >
-                                <Link href={editUrl}>Opublikuj</Link>
+                                {schedule.isPublished ? 'Cofnij publikację' : 'Opublikuj'}
                             </Button>
                             <Button
                                 asChild
