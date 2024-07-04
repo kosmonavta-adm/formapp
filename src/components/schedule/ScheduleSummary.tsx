@@ -2,7 +2,7 @@ import { format, formatDuration, set } from 'date-fns';
 import { pl } from 'date-fns/locale/pl';
 import { Dispatch, SetStateAction, useState } from 'react';
 
-import { ScheduleDay, ScheduleDays } from '@/components/schedule/ScheduleEditor';
+import { ScheduleDay, ScheduleDays } from '@/components/schedule/ScheduleWizardDayEdit';
 import Button from '@/components/ui/Button';
 import Checkbox from '@/components/ui/Checkbox';
 import ScheduleSummaryDict from '@/dictionaries/ScheduleSummaryDict.json';

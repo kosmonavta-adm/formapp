@@ -1,11 +1,10 @@
 'use client';
-
-import * as React from 'react';
+import { ComponentProps } from 'react';
 import { DayPicker, Mode } from 'react-day-picker';
 
 import { cxTw } from '@/utils/utils';
 
-export type CalendarProps<T extends Mode> = React.ComponentProps<typeof DayPicker<T>> & { size?: 'md' | 'lg' | 'xl' };
+export type CalendarProps<T extends Mode> = ComponentProps<typeof DayPicker<T>> & { size?: 'md' | 'lg' | 'xl' };
 
 function Calendar<T extends Mode>({ className, classNames, size = 'md', ...props }: CalendarProps<T>) {
     const getNumberOfColumns = (numberOfMonths: number | undefined) => {

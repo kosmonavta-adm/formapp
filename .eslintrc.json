@@ -7,6 +7,7 @@
         "no-console": 2,
         "no-multiple-empty-lines": ["warn", { "max": 1 }],
         "no-multi-assign": "error",
+        "no-unused-vars": "off",
         "@typescript-eslint/no-unused-vars": [
             "error",
             {

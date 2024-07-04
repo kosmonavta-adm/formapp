@@ -1,5 +1,5 @@
 import { ClassValue, clsx } from 'clsx';
-import { set } from 'date-fns';
+import { formatISO, set } from 'date-fns';
 import { twMerge } from 'tailwind-merge';
 
 export const url = {
@@ -7,8 +7,17 @@ export const url = {
     register: '/register',
     forgotPassword: '/auth/forgot-password',
     dashboard: '/dashboard',
-    schedule: '/schedule',
-    formBuilder: '/form',
+    addSchedule: '/schedules/add',
+    schedules: '/schedules',
+    scheduleWizard: (params?: { key: string; value: string }[]) => {
+        const url = new URL('/schedule-wizard', process.env.NEXT_PUBLIC_ROOT_DOMAIN);
+        params?.forEach((param) => {
+            url.searchParams.set(param.key, param.value);
+        });
+        return url.toString();
+    },
+    addForm: '/forms/add',
+    editForm: '/forms/edit',
     forms: '/forms',
 };
 
@@ -41,5 +50,5 @@ export const convertTimeToDate = (time: string) => {
     const [hours, minutes] = time.split(':');
     const result = set(new Date(), { hours: Number(hours), minutes: Number(minutes) });
 
-    return result;
+    return formatISO(result);
 };

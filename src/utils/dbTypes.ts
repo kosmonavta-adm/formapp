@@ -15,21 +15,21 @@ export type Database = {
           id: number
           schedule_id: number | null
           subdomain: string
-          user_id: string | null
+          user_id: string
         }
         Insert: {
           form_id?: number | null
           id?: number
           schedule_id?: number | null
           subdomain: string
-          user_id?: string | null
+          user_id?: string
         }
         Update: {
           form_id?: number | null
           id?: number
           schedule_id?: number | null
           subdomain?: string
-          user_id?: string | null
+          user_id?: string
         }
         Relationships: [
           {
@@ -53,8 +53,8 @@ export type Database = {
           blueprint: Json
           created_at: string
           id: number
-          is_active: boolean | null
-          name: string | null
+          is_active: boolean
+          name: string
           schema: Json
           user_id: string
         }
@@ -62,8 +62,8 @@ export type Database = {
           blueprint: Json
           created_at?: string
           id?: number
-          is_active?: boolean | null
-          name?: string | null
+          is_active?: boolean
+          name: string
           schema: Json
           user_id?: string
         }
@@ -71,8 +71,8 @@ export type Database = {
           blueprint?: Json
           created_at?: string
           id?: number
-          is_active?: boolean | null
-          name?: string | null
+          is_active?: boolean
+          name?: string
           schema?: Json
           user_id?: string
         }
@@ -103,19 +103,28 @@ export type Database = {
         Row: {
           created_at: string
           data: Json
+          end_date: string
           id: number
+          is_published: boolean
+          start_date: string
           user_id: string
         }
         Insert: {
           created_at?: string
           data: Json
+          end_date: string
           id?: number
+          is_published?: boolean
+          start_date: string
           user_id?: string
         }
         Update: {
           created_at?: string
           data?: Json
+          end_date?: string
           id?: number
+          is_published?: boolean
+          start_date?: string
           user_id?: string
         }
         Relationships: []
