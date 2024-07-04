@@ -11,42 +11,27 @@ export type Database = {
     Tables: {
       customer_form: {
         Row: {
-          form_id: number | null
+          form_data: Json | null
           id: number
-          schedule_id: number | null
+          schedule_data: Json | null
           subdomain: string
           user_id: string
         }
         Insert: {
-          form_id?: number | null
+          form_data?: Json | null
           id?: number
-          schedule_id?: number | null
+          schedule_data?: Json | null
           subdomain: string
           user_id?: string
         }
         Update: {
-          form_id?: number | null
+          form_data?: Json | null
           id?: number
-          schedule_id?: number | null
+          schedule_data?: Json | null
           subdomain?: string
           user_id?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "domain_form_id_fkey"
-            columns: ["form_id"]
-            isOneToOne: false
-            referencedRelation: "form"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "domain_schedule_id_fkey"
-            columns: ["schedule_id"]
-            isOneToOne: false
-            referencedRelation: "schedule"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       form: {
         Row: {

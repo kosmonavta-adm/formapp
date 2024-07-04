@@ -20,12 +20,18 @@ const SchedulesTable = ({ schedulesData }: SchedulesTableProps) => {
     const updateCustomerForm = useUpdateCustomerFormMutation();
     const profile = useGetProfileQuery();
 
-    const handlePublishSchedule = ({ id, isPublished }: { id: number; isPublished: boolean }) => {
-        updateSchedule.mutate({ id, data: { is_published: !isPublished } });
-        if (isPublished) {
-            updateCustomerForm.mutate({ customerFormData: { schedule_id: id }, subdomain: null });
+    const handlePublishSchedule = (schedule: ScheduleSchemaRevived) => {
+        updateSchedule.mutate({ id: schedule.id, data: { is_published: !schedule.isPublished } });
+        if (schedule.isPublished) {
+            updateCustomerForm.mutate({
+                customerFormData: { schedule_data: null },
+                subdomain: profile.data?.subdomain,
+            });
         } else {
-            updateCustomerForm.mutate({ customerFormData: { schedule_id: id }, subdomain: profile.data?.subdomain });
+            updateCustomerForm.mutate({
+                customerFormData: { schedule_data: JSON.stringify(schedule.data) },
+                subdomain: profile.data?.subdomain,
+            });
         }
     };
     return (
@@ -49,9 +55,7 @@ const SchedulesTable = ({ schedulesData }: SchedulesTableProps) => {
                         <div className="flex gap-4">
                             <Button
                                 variant="ghost"
-                                onClick={() =>
-                                    handlePublishSchedule({ id: schedule.id, isPublished: schedule.isPublished })
-                                }
+                                onClick={() => handlePublishSchedule(schedule)}
                             >
                                 {schedule.isPublished ? 'Cofnij publikację' : 'Opublikuj'}
                             </Button>

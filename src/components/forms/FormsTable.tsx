@@ -18,12 +18,15 @@ const FormsTable = ({ forms }: FormsTableProps) => {
     const updateCustomerForm = useUpdateCustomerFormMutation();
     const profile = useGetProfileQuery();
 
-    const handlePublishForm = ({ id, isPublished }: { id: number; isPublished: boolean }) => {
-        updateForm.mutate({ id, is_published: !isPublished });
-        if (isPublished) {
-            updateCustomerForm.mutate({ customerFormData: { form_id: id }, subdomain: null });
+    const handlePublishForm = (form: FormSchema) => {
+        updateForm.mutate({ id: form.id, is_published: !form.isPublished });
+        if (form.isPublished) {
+            updateCustomerForm.mutate({ customerFormData: { form_data: null }, subdomain: profile.data?.subdomain });
         } else {
-            updateCustomerForm.mutate({ customerFormData: { form_id: id }, subdomain: profile.data?.subdomain });
+            updateCustomerForm.mutate({
+                customerFormData: { form_data: form.blueprint },
+                subdomain: profile.data?.subdomain,
+            });
         }
     };
 
@@ -46,7 +49,7 @@ const FormsTable = ({ forms }: FormsTableProps) => {
                         <div className="flex gap-4">
                             <Button
                                 variant="ghost"
-                                onClick={() => handlePublishForm({ id: form.id, isPublished: form.isPublished })}
+                                onClick={() => handlePublishForm(form)}
                             >
                                 {form.isPublished ? 'Cofnij publikację' : 'Opublikuj'}
                             </Button>

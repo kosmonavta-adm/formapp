@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { scheduleKeys } from '@/components/schedule/queries/_scheduleQueriesUtils';
+import { formKeys } from '@/components/forms/_formUtils';
 import { TablesUpdate } from '@/utils/dbTypes';
 
 type UpdateFormData = TablesUpdate<'form'>;
@@ -30,7 +30,7 @@ export const useUpdateFormMutation = () => {
     return useMutation({
         mutationFn,
         onSettled: () => {
-            queryClient.invalidateQueries({ queryKey: scheduleKeys.all });
+            queryClient.invalidateQueries({ queryKey: formKeys.all });
         },
     });
 };
