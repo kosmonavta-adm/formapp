@@ -40,7 +40,7 @@ export const useGetAllSubdomains = () => {
     const queryKey = formsKeys.all;
 
     const queryFn = async () => {
-        const response = await fetch('/api/subdomain', {
+        const response = await fetch('api/subdomain', {
             method: 'GET',
         });
 

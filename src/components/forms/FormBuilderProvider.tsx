@@ -1,5 +1,6 @@
 'use client';
 
+import { nanoid } from 'nanoid';
 import { createContext, useCallback, useContext, useReducer } from 'react';
 import { z } from 'zod';
 type BaseBlueprint = {
@@ -130,7 +131,7 @@ export default function FormBuilderProvider({
                 newState.componentBlueprint = {
                     component: 'Input',
                     temporal: true,
-                    settings: { label: '', placeholder: '', dataId: crypto.randomUUID() },
+                    settings: { label: '', placeholder: '', dataId: nanoid() },
                 };
                 return newState;
             }
@@ -139,7 +140,7 @@ export default function FormBuilderProvider({
                 newState.componentBlueprint = {
                     component: 'Select',
                     temporal: true,
-                    settings: { label: '', placeholder: '', options: [], dataId: crypto.randomUUID() },
+                    settings: { label: '', placeholder: '', options: [], dataId: nanoid() },
                 };
                 return newState;
             }

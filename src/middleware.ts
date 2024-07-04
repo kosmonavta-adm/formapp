@@ -22,6 +22,7 @@ const updateLocale = (acceptedLocales: string | null, response: NextResponse<unk
 
 export async function middleware(request: NextRequest) {
     const host = request.headers.get('host');
+
     const url = request.nextUrl;
     if (host === process.env.NEXT_PUBLIC_ROOT_DOMAIN) {
         const response = await updateSession(request);
@@ -34,16 +35,15 @@ export async function middleware(request: NextRequest) {
         return NextResponse.rewrite(new URL(`/${host}${path}`, request.url));
     }
 }
-
 export const config = {
     matcher: [
         /*
-         * Match all request paths except for the ones starting with:
-         * - _next/static (static files)
-         * - _next/image (image optimization files)
-         * - favicon.ico (favicon file)
-         * Feel free to modify this pattern to include more paths.
+         * Match all paths except for:
+         * 1. /api routes
+         * 2. /_next (Next.js internals)
+         * 3. /_static (inside /public)
+         * 4. all root files inside /public (e.g. /favicon.ico)
          */
-        '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+        '/((?!api/|_next/|_static/|_vercel|[w-]+.w+|favicon.svg).*)/',
     ],
 };
