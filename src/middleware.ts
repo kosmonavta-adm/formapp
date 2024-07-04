@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { type NextRequest, NextResponse } from 'next/server';
 
 import { updateSession } from '@/auth/middleware';
@@ -23,17 +22,8 @@ const updateLocale = (acceptedLocales: string | null, response: NextResponse<unk
 
 export async function middleware(request: NextRequest) {
     const host = request.headers.get('host');
-    console.log('🚀 ~ middleware ~ host:', host);
     const url = request.nextUrl;
-    console.log('🚀 ~ middleware ~ url:', url);
-    console.log('🚀 ~ middleware ~ process.env.NEXT_PUBLIC_ROOT_DOMAIN:', process.env.NEXT_PUBLIC_ROOT_DOMAIN);
-
-    if (host === process.env.NEXT_PUBLIC_ROOT_DOMAIN || host === 'localhost:3000') {
-        console.log(`🚀 ~ middleware ~ host === 'localhost:3000':`, host === 'localhost:3000');
-        console.log(
-            '🚀 ~ middleware ~ host === process.env.NEXT_PUBLIC_ROOT_DOMAIN:',
-            host === process.env.NEXT_PUBLIC_ROOT_DOMAIN
-        );
+    if (host === process.env.NEXT_PUBLIC_ROOT_DOMAIN) {
         const response = await updateSession(request);
         return response.cookies.has('NEXT_LOCALE')
             ? response
