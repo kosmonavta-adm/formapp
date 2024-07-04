@@ -1,9 +1,11 @@
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { redirect } from 'next/navigation';
 import { ReactNode } from 'react';
 
 import { createClient } from '@/auth/server';
 import DashboardMainContainer from '@/components/DashboardMainContainer';
 import DesktopNavigation from '@/components/navigation/DesktopNavigation';
+import { prefetchProfile } from '@/components/profile/getProfile.server';
 import SidebarContainer from '@/components/SidebarContainer';
 import { url } from '@/utils/utils';
 
@@ -15,11 +17,16 @@ const layout = async ({ children }: { children: ReactNode }) => {
     if (error || !data?.user) {
         redirect(url.login);
     }
+
+    const queryClient = await prefetchProfile();
+
     return (
-        <SidebarContainer>
-            <DesktopNavigation />
-            <DashboardMainContainer>{children}</DashboardMainContainer>
-        </SidebarContainer>
+        <HydrationBoundary state={dehydrate(queryClient)}>
+            <SidebarContainer>
+                <DesktopNavigation />
+                <DashboardMainContainer>{children}</DashboardMainContainer>
+            </SidebarContainer>
+        </HydrationBoundary>
     );
 };
 
