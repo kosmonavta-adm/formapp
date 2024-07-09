@@ -38,8 +38,8 @@ export const formDataSchema = z.array(
         .object({
             component: z.literal('Input'),
             temporal: z.boolean(),
+            dataId: z.string(),
             settings: z.object({
-                dataId: z.string(),
                 label: z.string(),
                 placeholder: z.string(),
             }),
@@ -48,14 +48,14 @@ export const formDataSchema = z.array(
             z.object({
                 component: z.literal('Select'),
                 temporal: z.boolean(),
+                dataId: z.string(),
                 settings: z.object({
-                    dataId: z.string(),
                     label: z.string(),
                     placeholder: z.string(),
                     options: z.array(
                         z.object({
                             name: z.string(),
-                            id: z.string(),
+                            value: z.string(),
                         })
                     ),
                 }),

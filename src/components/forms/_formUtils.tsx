@@ -3,7 +3,6 @@ import { z } from 'zod';
 import { Blueprints } from '@/components/forms/FormBuilderProvider';
 import { Input } from '@/components/ui/Input';
 import { Select, SelectItem } from '@/components/ui/Select';
-import { cxTw } from '@/utils/utils';
 
 export type FormPhase = keyof typeof FORM_PHASE;
 
@@ -49,6 +48,7 @@ export const selectBlueprintSchema = z.object({
     [SELECT_BLUEPRINT.OPTIONS]: z.array(
         z.object({
             name: z.string(),
+            value: z.string(),
         })
     ),
 });
@@ -72,11 +72,10 @@ export const buildComponentFromBlueprint = (blueprint: Blueprints | undefined) =
         case 'Input': {
             return (
                 <Input
-                    data-id={blueprint.settings.dataId}
-                    className={cxTw(blueprint.temporal && 'animate-pulse')}
+                    data-id={blueprint.dataId}
                     label={{
                         value: blueprint.settings.label,
-                        className: cxTw(blueprint.temporal && 'animate-pulse', 'select-none'),
+                        className: 'select-none',
                     }}
                 />
             );
@@ -84,16 +83,16 @@ export const buildComponentFromBlueprint = (blueprint: Blueprints | undefined) =
         case 'Select': {
             return (
                 <Select
-                    data-id={blueprint.settings.dataId}
-                    className={cxTw(blueprint.temporal && 'animate-pulse')}
+                    data-id={blueprint.dataId}
                     label={{
                         name: blueprint.settings.label,
-                        className: cxTw(blueprint.temporal && 'animate-pulse', 'select-none'),
+                        className: 'select-none',
                     }}
+                    placeholder={blueprint.settings.placeholder}
                 >
                     {blueprint.settings.options.map((option) => (
                         <SelectItem
-                            key={option.id}
+                            key={option.value}
                             value={option.name}
                         >
                             {option.name}

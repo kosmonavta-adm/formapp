@@ -10,6 +10,8 @@ export { default as GripVertical } from './GripVertical';
 export { default as Loader } from './Loader';
 export { default as Plus } from './Plus';
 export { default as Trash } from './Trash';
+export { default as UnConcept } from './UnConcept';
+export { default as UnDropdown } from './UnDropdown';
 export { default as UnForm } from './UnForm';
 export { default as UnSchedule } from './UnSchedule';
 export { default as X } from './X';
