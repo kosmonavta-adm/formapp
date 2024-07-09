@@ -15,7 +15,7 @@ const Forms = () => {
     const areNoForms = forms.data?.length === 0;
     const areForms = areNoForms === false;
 
-    if (forms.data === undefined) return <Spinner />;
+    if (forms.data === undefined || forms.isFetching) return <Spinner />;
 
     return (
         <>

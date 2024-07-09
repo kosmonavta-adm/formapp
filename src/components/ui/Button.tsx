@@ -29,7 +29,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             isGhost && 'hover:text-neutral-600',
             isDestructive && 'bg-red-500 text-white hover:bg-red-600',
             isIcon &&
-                'flex h-10 aspect-square w-fit items-center border border-neutral-100 bg-neutral-50 transition-colors hover:bg-neutral-100 [&>svg]:h-5 [&>svg]:m-auto [&>svg]:absolute [&>svg]:inset-0 relative [&>svg]:stroke-neutral-600 [&>svg]:hover:stroke-neutral-800',
+                'flex h-10 aspect-square w-fit items-center transition-colors [&>svg]:h-5 [&>svg]:m-auto [&>svg]:absolute [&>svg]:inset-0 relative [&>svg]:stroke-neutral-600 [&>svg]:hover:stroke-neutral-800',
             isSmall && 'px-2 py-1 text-sm',
             isMedium && 'px-4 py-2',
             isLarge && 'px-6 py-3 text-lg',

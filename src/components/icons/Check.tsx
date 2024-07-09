@@ -1,20 +1,3 @@
-import type { SVGProps } from 'react';
-const SvgCheck = (props: SVGProps<SVGSVGElement>) => (
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        viewBox="0 0 24 24"
-        {...props}
-    >
-        <path
-            stroke="none"
-            d="M0 0h24v24H0z"
-        />
-        <path d="m5 12 5 5L20 7" />
-    </svg>
-);
+import type { SVGProps } from "react";
+const SvgCheck = (props: SVGProps<SVGSVGElement>) => <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} className="check_svg__icon check_svg__icon-tabler check_svg__icons-tabler-outline check_svg__icon-tabler-check" viewBox="0 0 24 24" {...props}><path stroke="none" d="M0 0h24v24H0z" /><path d="m5 12 5 5L20 7" /></svg>;
 export default SvgCheck;

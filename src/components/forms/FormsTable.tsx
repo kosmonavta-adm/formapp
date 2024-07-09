@@ -4,6 +4,7 @@ import Link from 'next/link';
 
 import { useUpdateCustomerFormMutation } from '@/components/customerForm/queries/updateCustomerForm.client';
 import { FormSchema } from '@/components/forms/_formUtils';
+import { useDeleteFormMutation } from '@/components/forms/queries/deleteForm.client';
 import { useUpdateFormMutation } from '@/components/forms/queries/updateForm.client';
 import { useGetProfileQuery } from '@/components/profile/getProfile.client';
 import Button from '@/components/ui/Button';
@@ -16,6 +17,8 @@ type FormsTableProps = {
 const FormsTable = ({ forms }: FormsTableProps) => {
     const updateForm = useUpdateFormMutation();
     const updateCustomerForm = useUpdateCustomerFormMutation();
+    const deleteForm = useDeleteFormMutation();
+
     const profile = useGetProfileQuery();
 
     const handlePublishForm = (form: FormSchema) => {
@@ -30,6 +33,8 @@ const FormsTable = ({ forms }: FormsTableProps) => {
         }
     };
 
+    const handleDeleteForm = (id: number) => deleteForm.mutate({ id });
+
     return (
         <div className="border border-neutral-100">
             <div className="grid grid-cols-[1fr,1fr,300px] bg-neutral-50 p-4">
@@ -37,7 +42,7 @@ const FormsTable = ({ forms }: FormsTableProps) => {
                 <p className="font-medium">Status</p>
             </div>
             {forms.map((form) => {
-                const editUrl = `${url.schedules}/edit/${form.id}`;
+                const editUrl = `${url.forms}/edit/${form.id}`;
 
                 return (
                     <div
@@ -60,10 +65,10 @@ const FormsTable = ({ forms }: FormsTableProps) => {
                                 <Link href={editUrl}>Edytuj</Link>
                             </Button>
                             <Button
-                                asChild
                                 variant="ghost"
+                                onClick={() => handleDeleteForm(form.id)}
                             >
-                                <Link href={editUrl}>Usuń</Link>
+                                Usuń
                             </Button>
                         </div>
                     </div>
