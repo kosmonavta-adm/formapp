@@ -13,6 +13,7 @@ export type Database = {
         Row: {
           created_at: string
           id: number
+          name: string | null
           schedule_data: Json | null
           subdomain: string
           user_id: string
@@ -20,6 +21,7 @@ export type Database = {
         Insert: {
           created_at?: string
           id?: number
+          name?: string | null
           schedule_data?: Json | null
           subdomain: string
           user_id?: string
@@ -27,6 +29,7 @@ export type Database = {
         Update: {
           created_at?: string
           id?: number
+          name?: string | null
           schedule_data?: Json | null
           subdomain?: string
           user_id?: string
@@ -90,6 +93,7 @@ export type Database = {
           customer_form_id: number | null
           date: string
           email: string
+          full_name: string | null
           id: number
           subdomain: string
         }
@@ -98,6 +102,7 @@ export type Database = {
           customer_form_id?: number | null
           date: string
           email: string
+          full_name?: string | null
           id?: number
           subdomain: string
         }
@@ -106,6 +111,7 @@ export type Database = {
           customer_form_id?: number | null
           date?: string
           email?: string
+          full_name?: string | null
           id?: number
           subdomain?: string
         }
@@ -126,6 +132,7 @@ export type Database = {
           end_date: string | null
           id: number
           is_published: boolean
+          name: string
           start_date: string
           user_id: string
         }
@@ -135,6 +142,7 @@ export type Database = {
           end_date?: string | null
           id?: number
           is_published?: boolean
+          name: string
           start_date: string
           user_id?: string
         }
@@ -144,6 +152,7 @@ export type Database = {
           end_date?: string | null
           id?: number
           is_published?: boolean
+          name?: string
           start_date?: string
           user_id?: string
         }

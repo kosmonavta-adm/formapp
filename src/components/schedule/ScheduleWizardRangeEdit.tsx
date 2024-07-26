@@ -1,6 +1,5 @@
 import { addMonths, endOfMonth, endOfYear, format } from 'date-fns';
 import { pl } from 'date-fns/locale/pl';
-import Link from 'next/link';
 import { Dispatch, SetStateAction } from 'react';
 
 import { ArrowLeft } from '@/components/icons';
@@ -11,7 +10,6 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/RadioGroup';
 import { Separator } from '@/components/ui/Separator';
 import ScheduleEditorRangeDict from '@/dictionaries/ScheduleEditorRangeDict.json';
 import { useLocaleContext } from '@/providers/LocaleProvider';
-import { url } from '@/utils/utils';
 
 type ScheduleDurationProps = {
     currentDate: Date;
@@ -39,12 +37,12 @@ const ScheduleWizardRangeEdit = ({
             <Button
                 className="p-0"
                 variant="ghost"
-                asChild
+                onClick={() => {
+                    handlePhaseChange(PHASE.SCHEDULE_NAME);
+                }}
             >
-                <Link href={url.schedules}>
-                    <ArrowLeft className="h-4" />
-                    Wróć
-                </Link>
+                <ArrowLeft className="h-4" />
+                Wróc do tytułu formularza
             </Button>
 
             <p className="mx-auto mb-4 text-balance text-center text-4xl font-bold">{t.scheduleAvailability}</p>

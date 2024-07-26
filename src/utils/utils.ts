@@ -16,9 +16,6 @@ export const url = {
         });
         return url.toString();
     },
-    addForm: '/forms/add',
-    editForm: '/forms/edit',
-    forms: '/forms',
 };
 
 export const cxTw = (...classes: ClassValue[]) => twMerge(clsx(...classes));
@@ -42,13 +39,13 @@ export const getFormErrorMessage = <T, K extends keyof T | undefined>(key: K, di
     return dict[key];
 };
 
-export const convertTimeToDate = (time: string) => {
+export const convertTimeToDate = (time: string, date?: Date) => {
     if (time.includes(':') === false) {
         throw new Error('Incorrect time format');
     }
 
     const [hours, minutes] = time.split(':');
-    const result = set(new Date(), { hours: Number(hours), minutes: Number(minutes) });
+    const result = set(date ?? new Date(), { hours: Number(hours), minutes: Number(minutes) });
 
     return formatISO(result);
 };

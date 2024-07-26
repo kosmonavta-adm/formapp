@@ -2,22 +2,17 @@ import { QueryClient } from '@tanstack/react-query';
 import { NextRequest, NextResponse } from 'next/server';
 
 import { createClient } from '@/auth/server';
-import { customerFormKeys } from '@/components/customerForm/_customerFormUtils';
 
-export const queryCustomerForm = async (subdomain: string) => {
+export const queryUpcomingAppointments = async (subdomain: string) => {
     const supabase = createClient();
 
     const { error, data } = await supabase
-        .from('customer_form')
+        .from('response')
         .select(
             `
-                scheduleData:schedule_data,
-                id,
-                name,
-                response (
-                    date
-                )
-
+                date,
+                email,
+                fullName
             `
         )
         .eq('subdomain', subdomain);
@@ -27,22 +22,25 @@ export const queryCustomerForm = async (subdomain: string) => {
     return data;
 };
 
-export const getCustomerForm = async (_: NextRequest, { params: { subdomain } }: { params: { subdomain: string } }) => {
+export const getUpcomingAppointments = async (
+    _: NextRequest,
+    { params: { subdomain } }: { params: { subdomain: string } }
+) => {
     try {
-        const data = await queryCustomerForm(subdomain);
+        const data = await queryUpcomingAppointments(subdomain);
         return NextResponse.json({ data, status: 200, error: null });
     } catch (error) {
         return NextResponse.json({ status: 500, error });
     }
 };
 
-export const prefetchCustomerForm = async (subdomain: string) => {
+export const prefetchUpcomingAppointments = async (subdomain: string) => {
     const queryClient = new QueryClient();
-    const queryKey = customerFormKeys.single(subdomain);
+    const queryKey = ['appointments'];
 
     await queryClient.prefetchQuery({
         queryKey,
-        queryFn: () => queryCustomerForm(subdomain),
+        queryFn: () => queryUpcomingAppointments(subdomain),
     });
 
     return queryClient;

@@ -3,7 +3,9 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
+import { useUpdateCustomerFormMutation } from '@/components/customerForm/queries/updateCustomerForm.client';
 import { ArrowLeft } from '@/components/icons';
+import { useGetProfileQuery } from '@/components/profile/getProfile.client';
 import { PHASE } from '@/components/schedule/_scheduleUtils';
 import DailySchedule from '@/components/schedule/DailySchedule';
 import { ScheduleSchemaRevived } from '@/components/schedule/queries/_scheduleQueriesUtils';
@@ -36,16 +38,20 @@ type ScheduleWizardDayEditProps = {
     scheduleData?: ScheduleSchemaRevived;
     handlePhaseChange: (phase: keyof typeof PHASE) => void;
     inEditMode: boolean;
+    scheduleName: string;
 };
 
 const ScheduleWizardDayEdit = ({
     endDate,
+    scheduleName,
     currentDate,
     handlePhaseChange,
     scheduleAsMap,
     scheduleData,
     inEditMode,
 }: ScheduleWizardDayEditProps) => {
+    const { data: profile } = useGetProfileQuery();
+
     const [selectedDays, setSelectedDays] = useState<Date[]>([new Date()]);
     const [scheduledDays, setScheduledDays] = useState<ScheduleDays>(scheduleAsMap);
 
@@ -60,6 +66,7 @@ const ScheduleWizardDayEdit = ({
     const isAnyScheduledDay = scheduledDays.size > 0;
     const createSchedule = useCreateScheduleMutation();
     const updateSchedule = useUpdateScheduleMutation();
+    const updateCustomerForm = useUpdateCustomerFormMutation();
 
     const handleSaveScheduledDays = async () => {
         const convertScheduledDaysToJSON = JSON.stringify(
@@ -88,10 +95,15 @@ const ScheduleWizardDayEdit = ({
             if (scheduleData === undefined) {
                 throw new Error('scheduleData is undefined');
             }
-            updateSchedule.mutate({ data: newData, id: scheduleData.id });
+            updateSchedule.mutate({ data: newData, name: scheduleName, id: scheduleData.id });
+            updateCustomerForm.mutate({
+                customerFormData: { schedule_data: newData, name: scheduleName },
+                subdomain: profile.data?.subdomain,
+            });
         } else {
             createSchedule.mutate({
                 ...newData,
+                name: scheduleName,
                 is_published: false,
             });
         }

@@ -1,5 +1,7 @@
 import { Metadata } from 'next';
 
+import Dashboard from '@/components/dashboard/Dashboard';
+
 export const metadata: Metadata = {
     title: 'Tymczasowy tytuł - panel administrator',
     openGraph: {
@@ -8,5 +10,5 @@ export const metadata: Metadata = {
 };
 
 export default async function DashboardPage() {
-    return <p>dashboard</p>;
+    return <Dashboard />;
 }
