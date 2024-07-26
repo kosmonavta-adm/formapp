@@ -39,7 +39,7 @@ const dailyScheduleSchema = z
         [DAILY_SCHEDULE.MEETING_INTERVAL]: z
             .string()
             .min(1, ERROR_KEYS.REQUIRED)
-            .refine((value) => Number(value) > 0, ERROR_KEYS.LESS_THAN_ZERO),
+            .refine((value) => Number(value) >= 0, ERROR_KEYS.LESS_THAN_ZERO),
     })
     .superRefine((values, context) => {
         if (values[DAILY_SCHEDULE.START_TIME].length === 0 || values[DAILY_SCHEDULE.END_TIME].length === 0) return;

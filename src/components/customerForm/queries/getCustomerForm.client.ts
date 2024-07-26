@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query';
-import { z } from 'zod';
 
 import { customerFormKeys } from '@/components/customerForm/_customerFormUtils';
 
@@ -20,8 +19,7 @@ export const useGetCustomerFormQuery = (subdomain: string) => {
         if (status !== 200) {
             throw new Error(error.message);
         }
-
-        return z.array(z.object({ formData: z.string().nullable() })).parse(data);
+        return data;
     };
 
     return useQuery({ queryKey, queryFn });

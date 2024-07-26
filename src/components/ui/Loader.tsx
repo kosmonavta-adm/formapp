@@ -4,13 +4,7 @@ import { Loader } from '@/components/icons';
 import { cxTw } from '@/utils/utils';
 
 const Spinner = ({ className }: { className?: ClassNameValue }) => {
-    return (
-        <Loader
-            className={cxTw('m-auto animate-spin', className)}
-            width={48}
-            height={48}
-        />
-    );
+    return <Loader className={cxTw('m-auto h-12 w-12 animate-spin', className)} />;
 };
 
 export default Spinner;

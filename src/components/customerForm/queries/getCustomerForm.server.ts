@@ -11,7 +11,12 @@ export const queryCustomerForm = async (subdomain: string) => {
         .from('customer_form')
         .select(
             `
-               formData:form_data
+                scheduleData:schedule_data,
+                id,
+                response (
+                    date
+                )
+
             `
         )
         .eq('subdomain', subdomain);

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 
 import { queryAllSubdomains } from '@/components/auth/getAllSubdomains';
+import { scheduleAppointment } from '@/components/customerForm/queries/scheduleAppointment.server';
 import { updateCustomerFormMutation } from '@/components/customerForm/queries/updateCustomerForm.server';
 
 export async function GET() {
@@ -17,3 +18,5 @@ export async function GET() {
 }
 
 export const PATCH = updateCustomerFormMutation;
+
+export const POST = scheduleAppointment;
