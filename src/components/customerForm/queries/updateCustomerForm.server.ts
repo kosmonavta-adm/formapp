@@ -6,9 +6,7 @@ export const updateCustomerFormMutation = async (request: NextRequest) => {
 
     const data = await request.json();
     const { customerFormData, subdomain } = data;
-
     const { error } = await supabase.from('customer_form').update(customerFormData).eq('subdomain', subdomain);
-
     if (error) {
         return NextResponse.json({ status: 500, error });
     } else {

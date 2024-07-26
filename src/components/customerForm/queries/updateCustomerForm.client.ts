@@ -25,7 +25,6 @@ export const useUpdateCustomerFormMutation = () => {
         });
 
         const { status, error, data } = await response.json();
-
         if (status !== 200) {
             throw new Error(error);
         }

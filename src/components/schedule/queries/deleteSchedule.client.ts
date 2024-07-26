@@ -1,14 +1,14 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { formKeys } from '@/components/forms/_formUtils';
+import { scheduleKeys } from '@/components/schedule/queries/_scheduleQueriesUtils';
 
-type DeleteFormData = { id: number };
+type DeleteScheduleData = { id: number };
 
-export const useDeleteFormMutation = () => {
+export const useDeleteScheduleMutation = () => {
     const queryClient = useQueryClient();
 
-    const mutationFn = async ({ id }: DeleteFormData) => {
-        const response = await fetch(`/api/forms/${id}`, {
+    const mutationFn = async ({ id }: DeleteScheduleData) => {
+        const response = await fetch(`/api/schedules/${id}`, {
             method: 'DELETE',
             headers: {
                 Accept: 'application/json',
@@ -26,7 +26,7 @@ export const useDeleteFormMutation = () => {
     return useMutation({
         mutationFn,
         onSettled: () => {
-            queryClient.invalidateQueries({ queryKey: formKeys.all });
+            queryClient.invalidateQueries({ queryKey: scheduleKeys.all });
         },
     });
 };

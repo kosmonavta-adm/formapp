@@ -7,15 +7,18 @@ import { createClient } from '@/auth/server';
 export const getAllSchedulesQuery = async () => {
     const supabase = createClient();
 
-    const { data, error } = await supabase.from('schedule').select(
-        `
+    const { data, error } = await supabase
+        .from('schedule')
+        .select(
+            `
             id,
             data,
             startDate:start_date,
             endDate:end_date,
             isPublished:is_published
         `
-    );
+        )
+        .order('id', { ascending: false });
 
     if (error) throw new Error(error.message);
 

@@ -1,7 +1,7 @@
 'use client';
 
 import * as SelectPrimitive from '@radix-ui/react-select';
-import { ComponentPropsWithoutRef, ReactNode, useId } from 'react';
+import { ComponentPropsWithoutRef, forwardRef, ReactNode, useId } from 'react';
 
 import { ChevronDown } from '@/components/icons';
 import ErrorText from '@/components/ui/ErrorText';
@@ -78,32 +78,39 @@ type SelectProps = {
     error?: string;
 } & SelectPrimitive.SelectProps;
 
-export const Select = ({ children, label, className, placeholder, error, ...props }: SelectProps) => {
-    const id = useId();
-    const isLabelGiven = label !== undefined;
+export const Select = forwardRef<HTMLDivElement, SelectProps>(
+    ({ children, label, className, placeholder, error, ...props }, ref) => {
+        const id = useId();
+        const isLabelGiven = label !== undefined;
 
-    return (
-        <div className={cxTw('flex w-full flex-col gap-2')}>
-            {isLabelGiven && (
-                <Label
-                    className={cxTw(label.className)}
-                    htmlFor={id}
-                >
-                    {label.name}
-                </Label>
-            )}
-            <SelectRoot {...props}>
-                <SelectTrigger
-                    className={className}
-                    id={id}
-                >
-                    <SelectValue placeholder={placeholder} />
-                </SelectTrigger>
-                <SelectContent>
-                    <SelectGroup>{children}</SelectGroup>
-                </SelectContent>
-            </SelectRoot>
-            {error && <ErrorText>{error}</ErrorText>}
-        </div>
-    );
-};
+        return (
+            <div
+                className={cxTw('flex w-full flex-col gap-2')}
+                ref={ref}
+            >
+                {isLabelGiven && (
+                    <Label
+                        className={cxTw(label.className)}
+                        htmlFor={id}
+                    >
+                        {label.name}
+                    </Label>
+                )}
+                <SelectRoot {...props}>
+                    <SelectTrigger
+                        className={className}
+                        id={id}
+                    >
+                        <SelectValue placeholder={placeholder} />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectGroup>{children}</SelectGroup>
+                    </SelectContent>
+                </SelectRoot>
+                {error && <ErrorText>{error}</ErrorText>}
+            </div>
+        );
+    }
+);
+
+Select.displayName = 'Select';

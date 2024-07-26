@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 import { createClient } from '@/auth/server';
-export const updateFormMutation = async (request: NextRequest, { params: { id } }: { params: { id: string } }) => {
+export const scheduleAppointment = async (request: NextRequest) => {
     const supabase = createClient();
 
     const data = await request.json();
 
-    const { error } = await supabase.from('form').update(data).eq('id', id);
+    const { error } = await supabase.from('response').insert(data);
 
     if (error) {
         return NextResponse.json({ status: 500, error });

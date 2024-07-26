@@ -1,21 +1,21 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { formKeys } from '@/components/forms/_formUtils';
+import { scheduleKeys } from '@/components/schedule/queries/_scheduleQueriesUtils';
 import { TablesUpdate } from '@/utils/dbTypes';
 
-type UpdateFormData = TablesUpdate<'form'>;
+type ScheduleAppointmentData = TablesUpdate<'response'> & { subdomain: string };
 
-export const useUpdateFormMutation = () => {
+export const useScheduleAppointmentMutation = () => {
     const queryClient = useQueryClient();
 
-    const mutationFn = async (updateData: UpdateFormData) => {
-        const response = await fetch(`/api/forms/${updateData.id}`, {
-            method: 'PATCH',
+    const mutationFn = async ({ subdomain, date, email, customer_form_id }: ScheduleAppointmentData) => {
+        const response = await fetch(`/api/customer-form`, {
+            method: 'POST',
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(updateData),
+            body: JSON.stringify({ date, email, subdomain, customer_form_id }),
         });
 
         const { status, error, data } = await response.json();
@@ -30,7 +30,7 @@ export const useUpdateFormMutation = () => {
     return useMutation({
         mutationFn,
         onSettled: () => {
-            queryClient.invalidateQueries({ queryKey: formKeys.all });
+            queryClient.invalidateQueries({ queryKey: scheduleKeys.all });
         },
     });
 };

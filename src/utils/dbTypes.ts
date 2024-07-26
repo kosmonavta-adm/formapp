@@ -11,21 +11,21 @@ export type Database = {
     Tables: {
       customer_form: {
         Row: {
-          form_data: Json | null
+          created_at: string
           id: number
           schedule_data: Json | null
           subdomain: string
           user_id: string
         }
         Insert: {
-          form_data?: Json | null
+          created_at?: string
           id?: number
           schedule_data?: Json | null
           subdomain: string
           user_id?: string
         }
         Update: {
-          form_data?: Json | null
+          created_at?: string
           id?: number
           schedule_data?: Json | null
           subdomain?: string
@@ -84,11 +84,46 @@ export type Database = {
         }
         Relationships: []
       }
+      response: {
+        Row: {
+          created_at: string
+          customer_form_id: number | null
+          date: string
+          email: string
+          id: number
+          subdomain: string
+        }
+        Insert: {
+          created_at?: string
+          customer_form_id?: number | null
+          date: string
+          email: string
+          id?: number
+          subdomain: string
+        }
+        Update: {
+          created_at?: string
+          customer_form_id?: number | null
+          date?: string
+          email?: string
+          id?: number
+          subdomain?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "response_customer_form_id_fkey"
+            columns: ["customer_form_id"]
+            isOneToOne: false
+            referencedRelation: "customer_form"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       schedule: {
         Row: {
           created_at: string
           data: Json
-          end_date: string
+          end_date: string | null
           id: number
           is_published: boolean
           start_date: string
@@ -97,7 +132,7 @@ export type Database = {
         Insert: {
           created_at?: string
           data: Json
-          end_date: string
+          end_date?: string | null
           id?: number
           is_published?: boolean
           start_date: string
@@ -106,7 +141,7 @@ export type Database = {
         Update: {
           created_at?: string
           data?: Json
-          end_date?: string
+          end_date?: string | null
           id?: number
           is_published?: boolean
           start_date?: string

@@ -1,4 +1,4 @@
-import { Duration, formatISO, startOfDay } from 'date-fns';
+import { Duration, formatISO, startOfMinute } from 'date-fns';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -67,7 +67,7 @@ const ScheduleWizardDayEdit = ({
                 (result, [date, scheduledDay]) => {
                     const newScheduleDay = {
                         ...scheduledDay,
-                        date: formatISO(startOfDay(date)),
+                        date: formatISO(startOfMinute(date)),
                     };
                     result.push(newScheduleDay);
 
@@ -80,8 +80,8 @@ const ScheduleWizardDayEdit = ({
         const newData = {
             data: convertScheduledDaysToJSON,
 
-            start_date: formatISO(startOfDay(currentDate)),
-            end_date: formatISO(startOfDay(endDate)),
+            start_date: formatISO(startOfMinute(currentDate)),
+            end_date: formatISO(startOfMinute(endDate)),
         };
 
         if (inEditMode) {

@@ -2,12 +2,10 @@ import { NextRequest, NextResponse } from 'next/server';
 
 import { createClient } from '@/auth/server';
 
-export const createFormMutation = async (request: NextRequest) => {
+export const deleteScheduleMutation = async (_: NextRequest, { params }: { params: { id: string } }) => {
     const supabase = createClient();
 
-    const data = await request.json();
-
-    const { error } = await supabase.from('form').insert(data);
+    const { error } = await supabase.from('schedule').delete().eq('id', params.id);
 
     if (error) {
         return NextResponse.json({ status: 500, error });

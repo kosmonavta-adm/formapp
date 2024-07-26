@@ -1,35 +1,12 @@
 import { z } from 'zod';
 
+export const CUSTOMER_FORM = {
+    APPOINTMENT: 'APPOINTMENT',
+    RESPONSES: 'RESPONSES',
+};
+
 export const customerFormSchema = z.object({
-    scheduleData: z.array(
-        z
-            .object({
-                component: z.string(),
-                temporal: z.boolean(),
-                settings: z.object({
-                    dataId: z.string(),
-                    label: z.string(),
-                    placeholder: z.string(),
-                }),
-            })
-            .or(
-                z.object({
-                    component: z.string(),
-                    temporal: z.boolean(),
-                    settings: z.object({
-                        dataId: z.string(),
-                        label: z.string(),
-                        placeholder: z.string(),
-                        options: z.array(
-                            z.object({
-                                name: z.string(),
-                                id: z.string(),
-                            })
-                        ),
-                    }),
-                })
-            )
-    ),
+    scheduleData: z.string(),
     formData: z.string(),
 });
 
