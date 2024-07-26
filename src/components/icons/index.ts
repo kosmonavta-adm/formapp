@@ -13,5 +13,6 @@ export { default as Trash } from './Trash';
 export { default as UnConcept } from './UnConcept';
 export { default as UnDropdown } from './UnDropdown';
 export { default as UnForm } from './UnForm';
+export { default as UnProgress } from './UnProgress';
 export { default as UnSchedule } from './UnSchedule';
 export { default as X } from './X';

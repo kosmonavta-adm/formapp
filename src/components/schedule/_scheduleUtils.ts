@@ -5,6 +5,7 @@ export const PHASE = {
     VIEW_SCHEDULE: 'VIEW_SCHEDULE',
     EDIT_SCHEDULE_RANGE: 'EDIT_SCHEDULE_RANGE',
     EDIT_SCHEDULE_DAY: 'EDIT_SCHEDULE_DAY',
+    SCHEDULE_NAME: 'SCHEDULE_NAME',
 } as const;
 
 export const getDifferenceInMonths = ({ endDate, startDate }: { endDate: string | Date; startDate: string | Date }) => {

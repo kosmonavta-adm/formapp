@@ -10,6 +10,7 @@ export const baseScheduleSchema = z.object({
     isPublished: z.boolean(),
     startDate: z.string(),
     endDate: z.string(),
+    name: z.string(),
 });
 
 export const scheduleSchemaFromQuery = baseScheduleSchema.extend({

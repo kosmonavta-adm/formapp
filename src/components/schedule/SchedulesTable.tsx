@@ -20,24 +20,24 @@ type SchedulesTableProps = {
 const SchedulesTable = ({ schedulesData }: SchedulesTableProps) => {
     const updateSchedule = useUpdateScheduleMutation();
     const updateCustomerForm = useUpdateCustomerFormMutation();
-    const profile = useGetProfileQuery();
+    const { data: profile } = useGetProfileQuery();
     const deleteSchedule = useDeleteScheduleMutation();
     const handlePublishSchedule = (
         schedule: ScheduleSchemaRevived,
         previousPublishedSchedule: ScheduleSchemaRevived[]
     ) => {
-        updateSchedule.mutate({ id: schedule.id, data: { is_published: true } });
+        updateSchedule.mutate({ id: schedule.id, is_published: true });
         if (previousPublishedSchedule.length === 1) {
             updateSchedule.mutate({ id: previousPublishedSchedule[0].id, data: { is_published: false } });
         }
         if (schedule.isPublished) {
             updateCustomerForm.mutate({
-                customerFormData: { schedule_data: null },
+                customerFormData: { schedule_data: null, name: null },
                 subdomain: profile.data?.subdomain,
             });
         } else {
             updateCustomerForm.mutate({
-                customerFormData: { schedule_data: JSON.stringify(schedule.data) },
+                customerFormData: { schedule_data: JSON.stringify(schedule.data), name: schedule.name },
                 subdomain: profile.data?.subdomain,
             });
         }

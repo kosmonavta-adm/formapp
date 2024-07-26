@@ -15,6 +15,7 @@ type CustomerCalendarProps = {
     data: {
         scheduleData: string;
         response: { date: string }[];
+        name: string;
         id: number;
     };
     subdomain: string;
@@ -24,6 +25,7 @@ const customerCalendarFormSchema = z.object({
     email: z.string().email(),
     date: z.date(),
     time: z.string(),
+    fullName: z.string(),
 });
 
 const CustomerCalendar = ({ data, subdomain }: CustomerCalendarProps) => {
@@ -32,9 +34,10 @@ const CustomerCalendar = ({ data, subdomain }: CustomerCalendarProps) => {
 
     const scheduleAppointment = useScheduleAppointmentMutation();
 
-    const { register, handleSubmit, control, formState, getValues } = useForm({
+    const { register, handleSubmit, control, formState, watch } = useForm({
         defaultValues: {
             email: '',
+            fullName: '',
             date: new Date(),
             time: '',
         },
@@ -46,10 +49,9 @@ const CustomerCalendar = ({ data, subdomain }: CustomerCalendarProps) => {
         return result;
     }, new Map());
 
-    const scheduleForDate = scheduleAsMap.get(format(getValues('date'), 'yyyy-MM-dd'));
+    const scheduleForDate = scheduleAsMap.get(format(watch('date'), 'yyyy-MM-dd'));
 
     const handleSuccessSubmit = (data: z.infer<typeof customerCalendarFormSchema>) => {
-        const email = getValues('email');
         const [hours, minutes] = data.time.split(':').map((part) => Number(part));
 
         const dateWithTime = set(data.date, { hours, minutes });
@@ -57,7 +59,8 @@ const CustomerCalendar = ({ data, subdomain }: CustomerCalendarProps) => {
         scheduleAppointment.mutate({
             subdomain,
             date: formatISO(startOfMinute(dateWithTime)),
-            email,
+            email: data.email,
+            full_name: data.fullName,
             customer_form_id: id,
         });
     };
@@ -65,71 +68,92 @@ const CustomerCalendar = ({ data, subdomain }: CustomerCalendarProps) => {
     return (
         <div className="w-[40vw]">
             {formState.isSubmitSuccessful === false && (
-                <form onSubmit={handleSubmit(handleSuccessSubmit)}>
-                    <Controller
-                        control={control}
-                        name="date"
-                        render={({ field }) => (
-                            <Calendar
-                                disabled={{ before: new Date() }}
-                                mode="single"
-                                onSelect={(date) => {
-                                    if (date === undefined) return;
+                <div>
+                    <h1 className="mb-8 text-4xl font-bold">{data.name}</h1>
+                    <form
+                        onSubmit={handleSubmit(handleSuccessSubmit)}
+                        className="flex flex-col gap-8"
+                    >
+                        <Input
+                            label={{ value: 'E-mail' }}
+                            {...register('email')}
+                        />
+                        <Input
+                            label={{ value: 'Imię i nazwisko' }}
+                            {...register('fullName')}
+                        />
+                        <Controller
+                            control={control}
+                            name="date"
+                            render={({ field }) => (
+                                <Calendar
+                                    disabled={{ before: new Date() }}
+                                    mode="single"
+                                    onSelect={(date) => {
+                                        if (date === undefined) return;
 
-                                    field.onChange(startOfDay(date));
-                                }}
-                                selected={field.value}
-                            />
-                        )}
-                    />
-                    <Controller
-                        control={control}
-                        name="time"
-                        render={({ field }) => {
-                            return (
-                                <RadioGroup
-                                    className="grid grid-cols-2"
-                                    onValueChange={(time) => field.onChange(time)}
-                                    value={field.value}
-                                >
-                                    {new Array(scheduleForDate?.appointmentsPerDay ?? 0)
-                                        .fill(undefined)
-                                        .reduce((result, _, index) => {
-                                            const startTime = startOfMinute(
-                                                addMinutes(
-                                                    scheduleForDate!.startTime,
-                                                    index * scheduleForDate!.meetingDuration +
-                                                        scheduleForDate!.meetingInterval * index
-                                                )
-                                            );
+                                        field.onChange(startOfDay(date));
+                                    }}
+                                    selected={field.value}
+                                />
+                            )}
+                        />
+                        <Controller
+                            control={control}
+                            name="time"
+                            render={({ field }) => {
+                                return (
+                                    <RadioGroup
+                                        className="grid grid-cols-2"
+                                        onValueChange={(time) => field.onChange(time)}
+                                        value={field.value}
+                                    >
+                                        {new Array(scheduleForDate?.appointmentsPerDay ?? 0)
+                                            .fill(undefined)
+                                            .reduce((result, _, index) => {
+                                                // console.log(
+                                                //     '🚀 ~ CustomerCalendar ~ scheduleForDate:',
+                                                //     scheduleForDate
+                                                // );
 
-                                            const isAlreadyTaken = responses.some(({ date }) =>
-                                                isSameMinute(startTime, date)
-                                            );
+                                                const startTime = startOfMinute(
+                                                    addMinutes(
+                                                        scheduleForDate!.startTime,
+                                                        index * scheduleForDate!.meetingDuration +
+                                                            scheduleForDate!.meetingInterval * index
+                                                    )
+                                                );
 
-                                            if (isAlreadyTaken) return result;
+                                                const isAlreadyTaken = responses.some(({ date }) => {
+                                                    // console.log('🚀 ~ isAlreadyTaken ~ date:', new Date(date));
+                                                    // console.log('🚀 ~ isAlreadyTaken ~ startTime:', startTime);
+                                                    // console.log(
+                                                    //     '🚀 ~ isAlreadyTaken ~ isSameMinute(startTime, date):',
+                                                    //     isSameMinute(startTime, new Date(date))
+                                                    // );
+                                                    return isSameMinute(startTime, new Date(date));
+                                                });
 
-                                            result.push(
-                                                <RadioGroupItem
-                                                    key={index}
-                                                    value={`${format(startTime, 'HH:mm')}`}
-                                                    label={`${format(startTime, 'HH:mm')}`}
-                                                />
-                                            );
+                                                if (isAlreadyTaken) return result;
 
-                                            return result;
-                                        }, [])}
-                                </RadioGroup>
-                            );
-                        }}
-                    />
+                                                result.push(
+                                                    <RadioGroupItem
+                                                        key={index}
+                                                        value={`${format(startTime, 'HH:mm')}`}
+                                                        label={`${format(startTime, 'HH:mm')}`}
+                                                    />
+                                                );
 
-                    <Input
-                        label={{ value: 'E-mail' }}
-                        {...register('email')}
-                    />
-                    <Button>Wyślij</Button>
-                </form>
+                                                return result;
+                                            }, [])}
+                                    </RadioGroup>
+                                );
+                            }}
+                        />
+
+                        <Button>Wyślij</Button>
+                    </form>
+                </div>
             )}
             {formState.isSubmitSuccessful && <p>Udało się!</p>}
         </div>

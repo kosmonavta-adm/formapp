@@ -8,14 +8,14 @@ type UpdateScheduleData = TablesUpdate<'schedule'>;
 export const useUpdateScheduleMutation = () => {
     const queryClient = useQueryClient();
 
-    const mutationFn = async ({ data: updateData, id }: UpdateScheduleData) => {
+    const mutationFn = async ({ id, ...rest }: UpdateScheduleData) => {
         const response = await fetch(`/api/schedules/${id}`, {
             method: 'PATCH',
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(updateData),
+            body: JSON.stringify(rest),
         });
 
         const { status, error, data } = await response.json();

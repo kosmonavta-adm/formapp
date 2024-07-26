@@ -15,7 +15,8 @@ export const getAllSchedulesQuery = async () => {
             data,
             startDate:start_date,
             endDate:end_date,
-            isPublished:is_published
+            isPublished:is_published,
+            name
         `
         )
         .order('id', { ascending: false });

@@ -89,29 +89,45 @@ const DailySchedule = ({ setScheduledDays, selectedDays, setSelectedDays }: Dail
     });
 
     const handleEditSchedule = async (formData: DailyScheduleData) => {
-        const meetingDuration = Number(formData[DAILY_SCHEDULE.MEETING_DURATION]);
-        const meetingInterval = Number(formData[DAILY_SCHEDULE.MEETING_INTERVAL]);
-        const startTime = convertTimeToDate(formData[DAILY_SCHEDULE.START_TIME]);
-        const endTime = convertTimeToDate(formData[DAILY_SCHEDULE.END_TIME]);
+        // const meetingDuration = Number(formData[DAILY_SCHEDULE.MEETING_DURATION]);
+        // const meetingInterval = Number(formData[DAILY_SCHEDULE.MEETING_INTERVAL]);
+        // const startTime = convertTimeToDate(formData[DAILY_SCHEDULE.START_TIME]);
+        // const endTime = convertTimeToDate(formData[DAILY_SCHEDULE.END_TIME]);
 
-        const workdayDurationInMinutes = differenceInMinutes(endTime, startTime);
-        const workdayDuration = intervalToDuration({ start: startTime, end: endTime });
-        const appointmentsPerDay = Math.floor(workdayDurationInMinutes / meetingDuration);
+        // const workdayDurationInMinutes = differenceInMinutes(endTime, startTime);
+        // const workdayDuration = intervalToDuration({ start: startTime, end: endTime });
+        // const appointmentsPerDay = Math.floor(workdayDurationInMinutes / meetingDuration);
 
-        const parsedScheduledDay = {
-            meetingDuration,
-            meetingInterval,
-            startTime,
-            endTime,
-            workdayDuration,
-            appointmentsPerDay,
-        };
+        // const parsedScheduledDay = {
+        //     meetingDuration,
+        //     meetingInterval,
+        //     startTime,
+        //     endTime,
+        //     workdayDuration,
+        //     appointmentsPerDay,
+        // };
 
         setScheduledDays((prevScheduledDays) => {
             const newScheduledDays = new Map(prevScheduledDays);
             selectedDays.forEach((selectedDay) => {
+                const meetingDuration = Number(formData[DAILY_SCHEDULE.MEETING_DURATION]);
+                const meetingInterval = Number(formData[DAILY_SCHEDULE.MEETING_INTERVAL]);
+                const startTime = convertTimeToDate(formData[DAILY_SCHEDULE.START_TIME], selectedDay);
+                const endTime = convertTimeToDate(formData[DAILY_SCHEDULE.END_TIME], selectedDay);
+
+                const workdayDurationInMinutes = differenceInMinutes(endTime, startTime);
+                const workdayDuration = intervalToDuration({ start: startTime, end: endTime });
+                const appointmentsPerDay = Math.floor(workdayDurationInMinutes / meetingDuration);
                 const date = formatISO(startOfDay(selectedDay));
-                newScheduledDays.set(date, { ...parsedScheduledDay, date });
+                newScheduledDays.set(date, {
+                    meetingDuration,
+                    meetingInterval,
+                    startTime,
+                    endTime,
+                    workdayDuration,
+                    appointmentsPerDay,
+                    date,
+                });
             });
             return newScheduledDays;
         });

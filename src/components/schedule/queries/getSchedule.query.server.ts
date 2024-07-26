@@ -15,7 +15,8 @@ export const getScheduleQuery = async (_: NextRequest, { params: { id } }: { par
             data,
             startDate:start_date,
             endDate:end_date,
-            isPublished:is_published
+            isPublished:is_published,
+            name
         `
         )
         .eq('id', id)
