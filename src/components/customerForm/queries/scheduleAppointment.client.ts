@@ -8,14 +8,14 @@ type ScheduleAppointmentData = TablesUpdate<'response'> & { subdomain: string };
 export const useScheduleAppointmentMutation = () => {
     const queryClient = useQueryClient();
 
-    const mutationFn = async ({ subdomain, date, email, customer_form_id }: ScheduleAppointmentData) => {
+    const mutationFn = async ({ subdomain, date, email, customer_form_id, full_name }: ScheduleAppointmentData) => {
         const response = await fetch(`/api/customer-form`, {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ date, email, subdomain, customer_form_id }),
+            body: JSON.stringify({ date, email, subdomain, full_name, customer_form_id }),
         });
 
         const { status, error, data } = await response.json();

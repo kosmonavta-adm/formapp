@@ -12,7 +12,7 @@ export const queryUpcomingAppointments = async (subdomain: string) => {
             `
                 date,
                 email,
-                fullName
+                fullName:full_name
             `
         )
         .eq('subdomain', subdomain);
