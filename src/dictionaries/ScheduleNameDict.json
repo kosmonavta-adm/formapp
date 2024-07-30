@@ -1,0 +1,12 @@
+{
+    "pl": {
+        "back": "Wróć",
+        "scheduleName": "Jak ma nazywać się Twój formularz?",
+        "next": "Dalej"
+    },
+    "en": {
+        "back": "Return.",
+        "scheduleName": "What should your form be called?",
+        "next": "Next"
+    }
+}

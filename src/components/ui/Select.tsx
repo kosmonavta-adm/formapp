@@ -17,7 +17,7 @@ const SelectValue = SelectPrimitive.Value;
 const SelectTrigger = ({ children, className, ...props }: ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>) => (
     <SelectPrimitive.Trigger
         className={cxTw(
-            'flex h-10 w-full items-center justify-between rounded-md border border-neutral-300 px-3 py-2 text-sm placeholder:text-neutral-400 focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:bg-neutral-50 disabled:opacity-50',
+            'flex h-10 w-full items-center justify-between border border-neutral-300 px-3 py-2 text-sm placeholder:text-neutral-400 focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:bg-neutral-50 disabled:opacity-50',
             className
         )}
         {...props}
@@ -41,7 +41,7 @@ const SelectContent = ({
     <SelectPrimitive.Portal>
         <SelectPrimitive.Content
             className={cxTw(
-                'relative top-1 z-50 flex max-h-96 max-w-[calc(100%-2px)] flex-col gap-1 overflow-hidden rounded-md border border-neutral-300 bg-white text-sm shadow-md'
+                'relative top-1 z-50 flex max-h-96 max-w-[calc(100%-2px)] flex-col gap-1 overflow-hidden border border-neutral-300 bg-white text-sm shadow-md'
             )}
             position={position}
             {...props}
