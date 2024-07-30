@@ -21,7 +21,6 @@ export const useGetAllSchedulesQuery = () => {
         });
 
         const { status, error, data } = await response.json();
-        console.log('🚀 ~ queryFn ~ data:', data);
 
         if (status !== 200) {
             throw new Error(error.message);
