@@ -40,7 +40,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
                         id={id}
                         type={isInputPassword && isPasswordShown ? 'text' : type}
                         className={cxTw(
-                            'flex h-10 w-full rounded-md border border-neutral-300 px-3 py-2 text-sm placeholder:text-neutral-400 focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:bg-neutral-50 disabled:opacity-50',
+                            'flex h-10 w-full border border-neutral-300 px-3 py-2 text-sm placeholder:text-neutral-400 focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:bg-neutral-50 disabled:opacity-50',
                             className
                         )}
                         ref={ref}

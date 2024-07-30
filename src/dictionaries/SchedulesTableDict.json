@@ -1,0 +1,24 @@
+{
+    "pl": {
+        "from": "Ważny od",
+        "to": "Ważny do",
+        "status": "Status",
+        "published": "Opublikowany",
+        "unpublished": "Nieopublikowany",
+        "publish": "Opublikuj",
+        "unpublish": "Cofnij publikację",
+        "delete": "Usuń",
+        "edit": "Edytuj"
+    },
+    "en": {
+        "from": "Valid from",
+        "to": "Valid until",
+        "status": "Status",
+        "published": "Published",
+        "unpublished": "Unpublished",
+        "publish": "Publish",
+        "unpublish": "Unpublish",
+        "delete": "Delete",
+        "edit": "Edit"
+    }
+}

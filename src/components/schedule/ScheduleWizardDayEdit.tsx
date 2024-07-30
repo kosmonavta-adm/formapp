@@ -95,7 +95,7 @@ const ScheduleWizardDayEdit = ({
             if (scheduleData === undefined) {
                 throw new Error('scheduleData is undefined');
             }
-            updateSchedule.mutate({ data: newData, name: scheduleName, id: scheduleData.id });
+            updateSchedule.mutate({ ...newData, name: scheduleName, id: scheduleData.id });
             updateCustomerForm.mutate({
                 customerFormData: { schedule_data: newData, name: scheduleName },
                 subdomain: profile.data?.subdomain,

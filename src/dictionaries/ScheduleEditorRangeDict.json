@@ -3,12 +3,22 @@
         "scheduleAvailability": "Do kiedy chcesz udostępnić harmonogram?",
         "choosePreset": "Wybierz gotowy zakres",
         "chooseOwnRange": "Wybierz własny zakres",
-        "next": "Dalej"
+        "next": "Dalej",
+        "backToFormTitle": "Wróć do tytułu formularza",
+        "byTheEndOfThisMonth": "Do końca bieżącego miesiąca",
+        "byTheEndOfNextMonth": "Do końca następnego miesiąca",
+        "byTheEndOfThisYear": "Do końca roku",
+        "or": "lub"
     },
     "en": {
         "scheduleAvailability": "By what date when do you want to make the schedule available?",
         "choosePreset": "Select a preset range",
         "chooseOwnRange": "Select custom range",
-        "next": "Next"
+        "next": "Next",
+        "backToFormTitle": "Back to the title of the form",
+        "byTheEndOfThisMonth": "By the end of the current month.",
+        "byTheEndOfNextMonth": "By the end of the next month",
+        "byTheEndOfThisYear": "By the end of the year.",
+        "or": "or"
     }
 }

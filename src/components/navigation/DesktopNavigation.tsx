@@ -6,9 +6,15 @@ import { menu } from '@/components/navigation/_navigationUtils';
 import Sidebar from '@/components/navigation/Sidebar';
 import Button from '@/components/ui/Button';
 import CustomLink from '@/components/ui/CustomLink';
+import DesktopNavigationDict from '@/dictionaries/DesktopNavigationDict.json';
+import { useLocaleContext } from '@/providers/LocaleProvider';
 import { cxTw } from '@/utils/utils';
 
 const DesktopNavigation = () => {
+    const locale = useLocaleContext();
+
+    const t = DesktopNavigationDict[locale];
+
     const pathname = usePathname();
     const handleLogout = async () => await logoutUser();
 
@@ -23,7 +29,7 @@ const DesktopNavigation = () => {
                                 className={cxTw('text-lg', pathname === item.url && 'font-semibold')}
                                 href={item.url}
                             >
-                                {item.name}
+                                {item.name(locale)}
                             </CustomLink>
                         </li>
                     ))}
@@ -32,7 +38,7 @@ const DesktopNavigation = () => {
                         variant="ghost"
                         onClick={handleLogout}
                     >
-                        Wyloguj się
+                        {t.logout}
                     </Button>
                 </menu>
             </div>

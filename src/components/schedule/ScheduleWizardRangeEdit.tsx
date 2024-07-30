@@ -42,7 +42,7 @@ const ScheduleWizardRangeEdit = ({
                 }}
             >
                 <ArrowLeft className="h-4" />
-                Wróc do tytułu formularza
+                {t.backToFormTitle}
             </Button>
 
             <p className="mx-auto mb-4 text-balance text-center text-4xl font-bold">{t.scheduleAvailability}</p>
@@ -58,21 +58,21 @@ const ScheduleWizardRangeEdit = ({
                     >
                         <RadioGroupItem
                             value={format(endOfMonth(currentDate), 'yyyy-MM-dd')}
-                            label="Bieżący miesiąc"
+                            label={t.byTheEndOfThisMonth}
                         />
                         <RadioGroupItem
                             value={format(endOfMonth(addMonths(currentDate, 1)), 'yyyy-MM-dd')}
-                            label="Do końca następnego miesiąca"
+                            label={t.byTheEndOfNextMonth}
                         />
                         <RadioGroupItem
                             value={format(endOfYear(currentDate), 'yyyy-MM-dd')}
-                            label="Do końca roku"
+                            label={t.byTheEndOfThisYear}
                         />
                     </RadioGroup>
                 </div>
                 <div className="mx-auto grid w-full min-w-32 max-w-lg grid-cols-[1fr,auto,1fr] items-center gap-6">
                     <Separator className="my-4" />
-                    <p className="font-medium">lub</p>
+                    <p className="font-medium">{t.or}</p>
                     <Separator className="my-4" />
                 </div>
                 <div className="mx-auto w-fit">

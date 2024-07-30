@@ -1,0 +1,14 @@
+{
+    "pl": {
+        "noSchedulesTitle": "Ups! Wygląda na to, że nie masz jeszcze żadnego harmonogramu...",
+        "noSchedulesBody": "Dodaj harmonogram, żeby Twoi klienci mogli się do Ciebie zapisać!",
+        "schedules": "Harmonogramy",
+        "addSchedule": "Dodaj harmonogram"
+    },
+    "en": {
+        "noSchedulesTitle": "Oops! Looks like you don't have a schedule yet....",
+        "noSchedulesBody": "Add a schedule so your customers can sign up with you!",
+        "schedules": "Schedules",
+        "addSchedule": "Add a schedule"
+    }
+}

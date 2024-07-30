@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 
 import Dashboard from '@/components/dashboard/Dashboard';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
 
 export const metadata: Metadata = {
     title: 'Tymczasowy tytuł - panel administrator',
@@ -10,5 +11,10 @@ export const metadata: Metadata = {
 };
 
 export default async function DashboardPage() {
-    return <Dashboard />;
+    return (
+        <>
+            <LanguageSwitcher className="absolute right-4 top-20 sm:right-10" />
+            <Dashboard />
+        </>
+    );
 }

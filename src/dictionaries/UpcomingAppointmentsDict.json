@@ -1,0 +1,14 @@
+{
+    "pl": {
+        "upcommingAppointments": "Nadchodzące wizyty",
+        "fullName": "Imię i nazwisko",
+        "email": "Email",
+        "date": "Data"
+    },
+    "en": {
+        "upcommingAppointments": "Upcoming appointments",
+        "fullName": "Name",
+        "email": "Email",
+        "date": "Date"
+    }
+}

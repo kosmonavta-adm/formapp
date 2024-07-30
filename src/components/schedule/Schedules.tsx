@@ -7,10 +7,16 @@ import { useGetAllSchedulesQuery } from '@/components/schedule/queries/getAllSch
 import SchedulesTable from '@/components/schedule/SchedulesTable';
 import Button from '@/components/ui/Button';
 import Spinner from '@/components/ui/Loader';
+import SchedulesDict from '@/dictionaries/SchedulesDict.json';
+import { useLocaleContext } from '@/providers/LocaleProvider';
 import { url } from '@/utils/utils';
 
 const Schedules = () => {
     const schedules = useGetAllSchedulesQuery();
+
+    const locale = useLocaleContext();
+
+    const t = SchedulesDict[locale];
 
     const areNoForms = schedules.data?.length === 0;
     const areForms = areNoForms === false;
@@ -30,14 +36,12 @@ const Schedules = () => {
                     >
                         <UnSchedule className="h-64" />
                         <div className="flex flex-col gap-2 text-balance text-center">
-                            <p className="text-xl font-semibold">
-                                Ups! Wygląda na to, że nie masz jeszcze żadnego harmonogramu...
-                            </p>
-                            <p className="">Dodaj harmonogram, żeby Twoi klienci mogli się do Ciebie zapisać!</p>
+                            <p className="text-xl font-semibold">{t.noSchedulesTitle}</p>
+                            <p className="">{t.noSchedulesBody}</p>
                         </div>
                         <div>
                             <Button asChild>
-                                <Link href={url.addSchedule}>Dodaj harmonogram</Link>
+                                <Link href={url.addSchedule}>{t.addSchedule}</Link>
                             </Button>
                         </div>
                     </motion.div>
@@ -46,17 +50,17 @@ const Schedules = () => {
             <AnimatePresence>
                 {areForms && (
                     <motion.div
-                        className="z-0 mt-20 flex w-full flex-col px-20"
+                        className="z-0 mt-20 flex w-full flex-col px-4 sm:px-10"
                         initial={{ opacity: 0.1 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.5, type: 'spring' }}
                     >
                         <div className="mb-6 flex items-center justify-between">
-                            <h1 className="text-3xl font-bold">Harmonogramy</h1>
+                            <h1 className="text-3xl font-bold">{t.schedules}</h1>
                             <Button asChild>
                                 <Link href={url.addSchedule}>
-                                    Dodaj harmonogram <Plus className="h-5 stroke-white" />
+                                    {t.addSchedule} <Plus className="h-5 stroke-white" />
                                 </Link>
                             </Button>
                         </div>

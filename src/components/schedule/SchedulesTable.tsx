@@ -11,6 +11,8 @@ import { useDeleteScheduleMutation } from '@/components/schedule/queries/deleteS
 import { useUpdateScheduleMutation } from '@/components/schedule/queries/updateSchedule.client';
 import Button from '@/components/ui/Button';
 import Spinner from '@/components/ui/Loader';
+import SchedulesTableDict from '@/dictionaries/SchedulesTableDict.json';
+import { useLocaleContext } from '@/providers/LocaleProvider';
 import { url } from '@/utils/utils';
 
 type SchedulesTableProps = {
@@ -18,6 +20,9 @@ type SchedulesTableProps = {
 };
 
 const SchedulesTable = ({ schedulesData }: SchedulesTableProps) => {
+    const locale = useLocaleContext();
+
+    const t = SchedulesTableDict[locale];
     const updateSchedule = useUpdateScheduleMutation();
     const updateCustomerForm = useUpdateCustomerFormMutation();
     const { data: profile } = useGetProfileQuery();
@@ -28,7 +33,7 @@ const SchedulesTable = ({ schedulesData }: SchedulesTableProps) => {
     ) => {
         updateSchedule.mutate({ id: schedule.id, is_published: true });
         if (previousPublishedSchedule.length === 1) {
-            updateSchedule.mutate({ id: previousPublishedSchedule[0].id, data: { is_published: false } });
+            updateSchedule.mutate({ id: previousPublishedSchedule[0].id, is_published: false });
         }
         if (schedule.isPublished) {
             updateCustomerForm.mutate({
@@ -52,9 +57,9 @@ const SchedulesTable = ({ schedulesData }: SchedulesTableProps) => {
     return (
         <div className="border border-neutral-100">
             <div className="grid grid-cols-4 bg-neutral-50 p-4">
-                <p className="font-medium">Ważny od</p>
-                <p className="font-medium">Ważny do</p>
-                <p className="font-medium">Status</p>
+                <p className="font-medium">{t.from}</p>
+                <p className="font-medium">{t.to}</p>
+                <p className="font-medium">{t.status}</p>
             </div>
             {schedulesData.map((schedule) => {
                 const editUrl = `${url.schedules}/edit/${schedule.id}`;
@@ -66,30 +71,30 @@ const SchedulesTable = ({ schedulesData }: SchedulesTableProps) => {
                     >
                         <p>{format(schedule.startDate, "d MMMM yyyy 'r.'", { locale: pl })}</p>
                         <p>{format(schedule.endDate, "d MMMM yyyy 'r.'", { locale: pl })}</p>
-                        <p>{schedule.isPublished ? 'Opublikowany' : 'Nieopublikowany'}</p>
-                        <div className="flex gap-4">
+                        <p>{schedule.isPublished ? t.published : t.unpublished}</p>
+                        <div className="flex flex-wrap gap-4">
                             <Button
                                 variant="ghost"
                                 onClick={() => handlePublishSchedule(schedule, previousPublishedSchedule)}
                                 disabled={updateSchedule.isPending}
-                                className="relative w-48"
+                                className="relative"
                             >
-                                {schedule.isPublished ? 'Cofnij publikację' : 'Opublikuj'}
+                                {schedule.isPublished ? t.unpublish : t.publish}
                                 {updateSchedule.isPending && updateSchedule.variables.id === schedule.id && (
-                                    <Spinner className="absolute left-0 h-6 w-6" />
+                                    <Spinner className="absolute -left-6 h-6 w-6" />
                                 )}
                             </Button>
                             <Button
                                 asChild
                                 variant="ghost"
                             >
-                                <Link href={editUrl}>Edytuj</Link>
+                                <Link href={editUrl}>{t.edit}</Link>
                             </Button>
                             <Button
                                 variant="ghost"
                                 onClick={() => handleDeleteSchedule(schedule.id)}
                             >
-                                Usuń
+                                {t.delete}
                             </Button>
                         </div>
                     </div>
